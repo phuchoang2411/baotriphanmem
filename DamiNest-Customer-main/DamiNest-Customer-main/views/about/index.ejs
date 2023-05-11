@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <%- include(layouts + '/head'); %>
+</head>
+
+<body id="about-page">
+  <%- include(layouts + '/header'); %>
+
+  <%- include(layouts + "/page-hero-unit", {
+    featuredImage: "/images/about/hero-unit.jpg",
+    heading: "Giới thiệu",
+    subHeading: null,
+    paragraph: "Công Ty TNHH MTV Yến Sào DaniNest với sản phẩm chính là yến sào được hình thành với sứ mệnh đem đến tay người tiêu dùng trên khắp lãnh thổ Việt Nam và bạn bè quốc tế sản phẩm Yến Sào Viêt Nam được đánh giá ngon nhất thế giới do người Việt làm ra",
+    buttonText: "Tìm hiểu thêm",
+    buttonLink: "#main"
+  }); %>
+
+  <main id="main">
+    <div class="container">
+      <div class="clearfix-56"></div>
+
+      <div class="friendly-for-reading">
+        <h2>Sứ mệnh</h2>
+        <p>Từ những đặc tính quý giá của yến sào mà thiên nhiên ban tặng, Công Ty TNHH MTV Yến Sào DaniNest với sản phẩm chính là yến sào được hình thành với sứ mệnh đem đến tay người tiêu dùng trên khắp lãnh thổ Việt Nam và bạn bè quốc tế sản phẩm Yến Sào Viêt Nam được đánh giá ngon nhất thế giới do người Việt làm ra.</p>
+        <h2>Giá trị cốt lõi</h2>
+        <ul>
+          <li>Trong thời đại công nghiệp 4.0 nhưng có những thứ chỉ khi được làm bằng tay mới thực sự tốt và giá trị. Yến sào cũng như vậy. Từ khâu hái tổ, đến sơ chế, loại bỏ những sợi lông nhỏ xíu khỏi sợi yến, đến việc cách thủy để giữ trọn vi chất từ tổ yến, tất cả những công đoạn trên được chúng tôi châm chút làm thủ công.</li>
+          <li>Để cho ra các dòng sản phẩm chất lượng cao cấp giữ lại 100% giá trị dinh dưỡng có trong tổ yến.</li>
+          <li>Đa dạng hóa các chủng loại, qui cách đóng gói, kích cỡ bao bì nhằm tạo sự thuận tiện, phục vụ cho nhu cầu sữ dụng đa dạng phù hợp với tất cả mọi người.</li>
+        </ul>
+        <h2>Cam kết</h2>
+        <p>Với phương châm chất lượng là tiên quyết nên chính sách bán hàng của Công ty là cam kết tiền 300% cho khách hàng nếu chứng minh trong sản phẩm của Công ty có hàng giả.</p>
+      </div>
+
+      <div class="clearfix-56"></div>
+    </div>
+  </main>
+
+  <%- include(layouts + '/footer'); %>
+  <%- include(layouts + '/foot'); %>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#navPrimary [itemid="about"]').addClass('active');
+    });
+  </script>
+</body>
+
+</html>

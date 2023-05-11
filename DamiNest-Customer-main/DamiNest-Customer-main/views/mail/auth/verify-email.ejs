@@ -1,0 +1,21 @@
+<%- include('../layout/header') -%>
+
+<p class="hello">
+  Chào <%= fullName %>,
+</p>
+
+<p>Cảm ơn bạn đã đăng ký tài khoản <%= trans('layout.companyName') %>. Trước khi bắt đầu, chúng tôi cần xác minh Email của bạn để bạn có thể truy cập vào tất cả các tính năng của <%= trans('layout.companyName') %>!</p>
+
+<p>Bằng cách Click vào nút bên dưới, bạn đang xác nhận địa chỉ Email của mình và đồng ý với các điều khoản dịch vụ của <%= trans('layout.companyName') %>.</p>
+
+<p>
+  <a href="<%= getWebCustomerUrl(actionUrl) %>" class="btn">
+    <span class="gmail-blend-screen">
+      <span class="gmail-blend-difference">
+        Xác nhận Email
+      </span>
+    </span>
+  </a>
+</p>
+
+<%- include('../layout/footer', { support: true }) -%>

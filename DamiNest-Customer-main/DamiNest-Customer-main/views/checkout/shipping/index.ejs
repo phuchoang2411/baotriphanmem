@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <%- include(layouts + '/head'); %>
+
+  <link rel="stylesheet" href="/css/checkout/layout.css">
+</head>
+
+<body id="checkout-shipping-page">
+  <div class="checkout-layout">
+    <div class="container">
+      <div class="checkout-container">
+        <header class="checkout-header">
+          <div class="row">
+            <div class="col col-12 col-md-8 offset-md-2">
+              <div class="logo">
+                <a href="/">
+                  <img src="/images/logo-with-text.svg" height="56px" />
+                </a>
+              </div>
+
+              <div class="steps">
+                <a href="/checkout/cart" class="step done">
+                  <span class="step-icon">
+                    <i class="fas fa-check"></i>
+                  </span>
+                  <span class="step-label">Chọn sản phẩm</span>
+                </a>
+
+                <a href="#" class="step active">
+                  <span class="step-icon">2</span>
+                  <span class="step-label">Thông tin giao hàng</span>
+                </a>
+
+                <a href="#" class="step">
+                  <span class="step-icon">3</span>
+                  <span class="step-label">Thanh toán</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main class="checkout-main">
+          <div class="row">
+            <div class="col col-12 col-md-8 offset-md-2">
+              <div class="checkout-panel">
+                <div class="checkout-heading">
+                  <h2>Thông tin giao hàng</h2>
+                </div>
+
+                <div class="checkout-body">
+                  <form id="form-shipping" method="POST">
+                    <div class="mb-3">
+                      <label for="fullName" class="form-label">Họ tên</label>
+                      <input type="text" class="form-control" name="fullName" id="fullName" placeholder="Họ và tên" value="<%= currentUser?.fullName %>" required>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="phoneNumber" class="form-label">Điện thoại</label>
+                      <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="Điện thoại" value="<%= currentUser?.phoneNumber %>" aria-describedby="phoneHelp" required>
+                      <div id="phoneHelp" class="form-text">Chúng tôi sẽ liên hệ với quý khách để xác nhận đơn hàng.</div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="shippingAddress" class="form-label">Địa chỉ nhận hàng</label>
+                      <input type="text" class="form-control" name="shippingAddress" id="shippingAddress" placeholder="Địa chỉ nhận hàng" value="<%= currentUser?.address %>" aria-describedby="shippingAddressHelp" required>
+                      <div id="shippingAddressHelp" class="form-text">Hãy nhập địa chỉ chi tiết để Shipper dễ dàng giao hàng cho bạn.</div>
+                    </div>
+
+                    <div class="mb-4">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="<%= currentUser.email %>" aria-describedby="emailHelp" required disabled>
+                      <div id="emailHelp" class="form-text">Chúng tôi sẽ gửi thông báo về đơn hàng qua Email này.</div>
+                    </div>
+
+                    <div class="d-grid">
+                      <button type="submit" class="btn btn-primary">Giao đến địa chỉ này</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <%- include(layouts + '/foot'); %>
+
+  <script src="/js/checkout.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#form-shipping').submit(function (event) {
+        event.preventDefault();
+
+        if (!cartLS.list().length) {
+          toastr.warning("Vui lòng thêm sản phẩm vào giỏ hàng");
+          return;
+        }
+
+        checkoutLS.saveShipping({
+          fullName: $('#fullName').val(),
+          phoneNumber: $('#phoneNumber').val(),
+          shippingAddress: $('#shippingAddress').val()
+        });
+
+        window.location = '/checkout/payment';
+      });
+    });
+  </script>
+</body>
+
+</html>

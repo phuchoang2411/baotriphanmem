@@ -1,0 +1,39 @@
+<%
+
+const totalStar = 5;
+const starPercent = (ratingAvg / totalStar) * 100;
+const starPercentRounded = (Math.round(starPercent / 10) * 10);
+
+const r = starPercentRounded % 20;
+
+const totalStarActive = (starPercentRounded - r) / 20;
+const totalStarHalf = r / 20;
+
+const _hideAvgAndTotal = typeof hideAvgAndTotal !== "undefined" && hideAvgAndTotal;
+
+%>
+
+<div class="rating">
+  <div class="rating-stars">
+    <% for (var i = 1; i <= totalStarActive; ++i) { %>
+      <i class="fas fa-star active"></i>
+    <% } %>
+
+    <% if (totalStarHalf != 0) { %>
+      <i class="fas fa-star-half-alt active"></i>
+    <% } %>
+
+    <% for (var i = totalStarActive + 1 + Math.round(totalStarHalf); i <= 5; ++i) { %>
+      <i class="fas fa-star"></i>
+    <% } %>
+  </div>
+
+  <% if (!_hideAvgAndTotal) { %>
+    <% if (totalRatings > 0) { %>
+      <span class="rating-avg"><%= ratingAvg?.toFixed?.(1) %></span>
+      <span class="rating-total">(<%= totalRatings %> đánh giá)</span>
+    <% } else { %>
+      <span class="rating-total">Chưa có đánh giá</span>
+    <% } %>
+  <% } %>
+</div>

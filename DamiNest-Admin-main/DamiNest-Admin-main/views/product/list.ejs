@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../_partials/header') %>
+    <title>Products</title>
+  </head>
+
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <%- include('../_partials/sidebar'); %>
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <%- include('../_partials/topbar'); %>
+          <!-- End of Topbar -->
+
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Sản phẩm</h1>
+            <p class="mb-4">Các sản phẩm yến sào</p>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <div class="row justify-content-between">
+                  <div class="col-auto mr-auto">
+                    <h6 class="m-2 font-weight-bold text-primary">
+                      Các sản phẩm
+                    </h6>
+                  </div>
+                  <div class="col-auto">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      data-toggle="modal"
+                      data-target="#addProduct"
+                    >
+                      <i class="fas fa-plus-circle">&#xE147;</i
+                      ><span>Thêm sản phẩm</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table
+                    class="table table-bordered"
+                    id="dataTable"
+                    width="100%"
+                    cellspacing="0"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Chuyên mục</th>
+                        <th>Nhà cung cấp</th>
+                        <th>Tuỳ chỉnh</th>
+                      </tr>
+                    </thead>
+                    <tfoot>
+                      <tr>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Chuyên mục</th>
+                        <th>Nhà cung cấp</th>
+                        <th>Tuỳ chỉnh</th>
+                      </tr>
+                    </tfoot>
+                    <tbody>
+                      <% if(products.length> 0) { %> <% for(let product of
+                      products) { %>
+                      <tr>
+                        <th scope="row"><%= product.name %></th>
+                        <td><%= product.price %></td>
+                        <td><%= product.categoryId.name %></td>
+                        <td>Tăng Hoàng Yến</td>
+                        <td>
+                          <a
+                            href="/product/update-product/<%= product._id %>"
+                            class="edit"
+                            title="Edit"
+                            data-toggle="tooltip"
+                            ><i class="far fa-edit">&#xE254;</i></a
+                          >
+                          <a
+                            href="/product/delete-product/<%= product._id %>"
+                            class="delete"
+                            title="Delete"
+                            data-toggle="tooltip"
+                            ><i class="far fa-trash-alt">&#xE872;</i></a
+                          >
+                        </td>
+                      </tr>
+                      <% } %> <% } else { %>
+                      <tr>
+                        <td>No data found</td>
+                      </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+
+          <!-- Modal Add -->
+          <div class="card-body">
+            <form action="/product" method="post">
+              <div
+                class="modal fade"
+                id="addProduct"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="exampleModalLongTitle"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">
+                        Thêm sản phẩm
+                      </h5>
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label for="name" class="form-label"
+                          >Tên sản phẩm</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control item"
+                          name="name"
+                          id="name"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="price" class="form-label">Giá</label>
+                        <input
+                          type="number"
+                          class="form-control item"
+                          name="price"
+                          id="price"
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="categoryId" class="form-label"
+                          >Chuyên mục</label
+                        >
+                        <select
+                          class="form-control"
+                          name="categoryId"
+                          id="categoryId"
+                        >
+                          <% for (let category of categories) { %>
+                          <option value="<%= category._id%>">
+                            <%= category.name %>
+                          </option>
+                          <% } %>
+                        </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="ownerId" class="form-label"
+                          >Nhà cung cấp</label
+                        >
+                        <select
+                          class="form-control"
+                          name="ownerId"
+                          id="ownerId"
+                        >
+                          <% for (let owner of owners) { %>
+                          <option value="<%= owner._id%>">
+                            <%= owner.fullName %>
+                          </option>
+                          <% } %>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                      >
+                        Đóng
+                      </button>
+                      <button type="submit" class="btn btn-primary">
+                        Thêm
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- End of Main Content -->
+        <%- include('../_partials/footer') %>
+      </div>
+      <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <%- include('../_partials/scripts')%>
+
+    <!-- Page level plugins -->
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/js/demo/datatables-demo.js"></script>
+  </body>
+</html>

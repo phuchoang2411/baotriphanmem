@@ -1,0 +1,69 @@
+<div class="order">
+  <div class="order-summary">
+    <h4 class="heading" style="padding-bottom: 0; border-bottom: 0;">
+      <%= trans('order.order.info') %>
+    </h4>
+    <table class="full-width bordered">
+      <tr>
+        <td style="width: 50%; color: #000;">
+          <strong><%= trans('order.order.createdAt') %></strong>
+        </td>
+        <td style="color: #000;">
+          <%= dateFormatter(order.createdAt) %>
+        </td>
+      </tr>
+      <tr>
+        <td style="color: #000;">
+          <strong><%= trans('order.order.status') %></strong>
+        </td>
+        <td>
+          <span class="status" style="color: #000;">
+            <%= trans('order.order.statusMessage.' + order?.status, { reasons: order?.reasonsForRejection }) %>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td style="color: #000;">
+          <strong><%= trans('order.order.shippingAddress') %></strong>
+        </td>
+        <td style="color: #000;">
+          <p><%= order?.fullName %></p>
+          <p><%= order?.phoneNumber %></p>
+          <p style="margin-bottom: 0;"><%= order?.shippingAddress %></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="order-details">
+    <h4 class="heading" style="padding-bottom: 0; border-bottom: 0;">
+      <%= trans('order.order.productList') %>
+    </h4>
+    <table class="full-width bordered">
+      <% if (Array.isArray(order?.products)) { %>
+        <% for (let product of order?.products) { %>
+          <tr>
+            <td>
+              <%= product?.quantity %> x <a href="<%= getWebCustomerUrl(`/products/${product?.productId}`) %>" target="_blank" style="color: #000; margin-right: 8px;"><%= product?.name %></a>
+            </td >
+            <td style="text-align: right;">
+              <span style="display: block; font-weight: 600; color: #841206;"><%= currencyFormatter(product?.total) %></span>
+            </td>
+          </tr>
+        <% } %>
+      <% } %>
+    </table>
+    <table class="full-width bordered" style="margin-bottom: 16px; border-top: 3px solid #eee; border-bottom: 1px solid #eee;">
+      <tr>
+        <td style="vertical-align: top; font-size: 18px; font-weight: 600; color: #000;">
+          <%= trans('order.order.total') %>
+        </td>
+        <td style="text-align: right; ">
+          <span style="display: block; font-size: 18px; font-weight: 600; color: #841206;"><%= currencyFormatter(order?.total) %></span>
+          <span style="display: block; font-size: 14px; color: #000;">
+            <%= trans('order.order.includedVAT') %>
+          </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

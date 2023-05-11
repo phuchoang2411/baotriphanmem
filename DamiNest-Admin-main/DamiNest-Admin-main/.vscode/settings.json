@@ -1,0 +1,17 @@
+{
+  "[html]": {
+    "editor.formatOnSave": false
+  },
+  "editor.formatOnSave": true,
+  "standard.enable": true,
+  "standard.autoFixOnSave": true,
+  "globals": {
+    "_": true
+  },
+  "standard.validate": [
+    {
+      "language": "javascript",
+      "autoFix": true
+    }
+  ]
+}

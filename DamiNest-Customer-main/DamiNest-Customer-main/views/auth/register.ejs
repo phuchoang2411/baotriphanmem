@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <%- include(layouts + '/head'); %>
+
+  <link rel="stylesheet" href="/css/auth/index.css">
+</head>
+
+<body id="register-page">
+  <%- include(layouts + '/header'); %>
+
+  <main>
+    <div class="container">
+      <div class="clearfix-32"></div>
+
+      <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+          <form action="<%= formAction %>" method="post" id="form-register" class="form-auth">
+            <h1 class="page-heading">Đăng ký</h1>
+
+            <% if (registerRes === "FAILED") { %>
+              <div class="alert alert-danger" role="alert">
+                Đăng ký không thành công
+              </div>
+            <% } %>
+
+            <div class="form-group form-floating mb-3">
+              <input type="text" name="fullName" class="form-control" id="fullName" placeholder="Họ tên" required>
+              <label for="fullName">Họ tên</label>
+            </div>
+
+            <div class="form-group form-floating mb-3">
+              <input type="email" name="email" class="form-control" id="email" placeholder="Email" required>
+              <label for="email">Email</label>
+            </div>
+
+            <div class="form-group form-floating mb-3">
+              <input type="password" name="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" required>
+              <label for="password">Mật khẩu</label>
+            </div>
+
+            <div class="form-group form-floating mb-3">
+              <input type="password" name="passwordConfirmation" class="form-control" id="passwordConfirmation" name="passwordConfirmation" placeholder="Nhập lại mật khẩu" required>
+              <label for="passwordConfirmation">Nhập lại mật khẩu</label>
+            </div>
+
+            <input type="hidden" name="cartLS" id="cartLS">
+
+            <div class="d-grid mb-3">
+              <button type="submit" class="btn btn-primary btn-full" id="btn-submit" data-loading-text="Đang xử lí">Đăng ký</button>
+            </div>
+
+            <div class="text-center">
+              <p class="mb-0">Bạn đã có tài khoản? <a href="<%= loginUrl %>">Đăng nhập ngay</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include(layouts + '/foot'); %>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      const cart = cartLS.list().map((item) => ({
+        productId: item.id,
+        quantity: item.quantity
+      }));
+
+      $('#cartLS').val(JSON.stringify(cart));
+
+      $("#form-register").validate({
+        rules: {
+          fullName: {
+            required: true,
+            minlength: 3
+          },
+          email: {
+            required: true,
+            email: true,
+            remote:  {
+              url: "/auth/check-email",
+              type: "POST"
+            }
+          },
+          password: {
+            required: true,
+            minlength: 6
+          },
+          passwordConfirmation: {
+            equalTo: "#password"
+          }
+        },
+        messages: {
+          fullName: {
+            required: "Bạn chưa nhập họ tên",
+            minlength: "Họ tên phải 3 kí tự trở lên",
+          },
+          email: {
+            required: "Vui lòng nhập email",
+            email: "Email không đúng định dạng",
+            remote: "Email đã được sử dụng"
+          },
+          password: {
+            required: "Bạn chưa nhập mật khẩu",
+            minlength: "Mật khẩu phải 6 kí tự trở lên",
+          },
+          passwordConfirmation: {
+            required: "Bạn chưa nhập lại mật khẩu",
+            equalTo: "Mật khẩu không khớp"
+          }
+        },
+
+        errorElement : 'div',
+        errorClass: 'is-invalid',
+        validClass: 'is-valid',
+
+        submitHandler: function (form) {
+          $('#btn-submit').bootstrapBtn('loading');
+          form.submit();
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<%- include('../layout/header') -%>
+
+<p>
+  <strong><%= review?.fullName %></strong> (<%= review?.phoneNumber %>) vừa đánh giá sản phẩm.
+</p>
+
+<p>Vui lòng xem đánh giá và tiến hành kiểm duyệt.</p>
+
+<div style="border-top: 1px solid #eee; padding-top: 16px; border-bottom: 1px solid #eee; margin-bottom: 16px;">
+  <p><strong>Ngày viết nhận xét</strong> : <%= dateFormatter(review?.createdAt) %></p>
+  <p><strong>Đánh giá</strong> : <%= review?.rating %> / 5 sao</p>
+  <p><strong>Nhận xét</strong></p>
+
+  <div style="border-left: 2px solid #eee; padding-left: 24px; padding-top: 4px; padding-bottom: 4px; font-style: italic; margin-bottom: 16px;">
+    <p style="margin-bottom: 0;">
+      <%= review?.content %>
+    </p>
+  </div>
+
+  <p>
+    <a href="<%= getWebAdminUrl(`/review?reviewId=${review?._id}`) %>" class="btn">
+      <span class="gmail-blend-screen">
+        <span class="gmail-blend-difference">
+          Kiểm duyệt
+        </span>
+      </span>
+    </a>
+  </p>
+</div>
+
+<%- include('../layout/footer', { support: false, thankYou: 'Developer Team.' }) -%>

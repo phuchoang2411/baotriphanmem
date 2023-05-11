@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../_partials/header') %>
+    <title>Danh Sách Tài Khoản Khách Hàng</title>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <%- include('../_partials/sidebar'); %>
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <!-- Topbar -->
+                    <%- include('../_partials/topbar'); %>
+                        <!-- End of Topbar -->
+
+                        <!-- Begin Page Content -->
+                        <div class="container-fluid">
+
+                            <!-- DataTales Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <div class="row justify-content-between">
+                                        <div class="col-auto mr-auto">
+                                            <h6 class="m-2 font-weight-bold text-primary">Danh Sách Tài Khoản Khách Hàng</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Họ tên</th>
+                                                    <th>Email</th>
+                                                    <th>Tình trạng</th>
+                                                    <th>Hành động</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if(users.length> 0) { %>
+                                                    <% for(let user of users) { %>
+                                                        <tr>
+                                                            <th scope="row">
+                                                                <%= user.fullName %>
+                                                            </th>
+                                                            <td>
+                                                                <%= user.email %>
+                                                            </td>
+                                                            <td>
+                                                                <% if(!user.isBlocked) {%>
+                                                                    Tốt
+                                                                <% } %>
+                                                                <% if(user.isBlocked) {%>
+                                                                    Đã bị khoá
+                                                                <% } %>
+                                                            </td>
+                                                            <td>
+                                                                <a href="/user/profile/<%= user._id %>" class="see" title="see" data-toggle="tooltip"><i class="fas fa-eye">&#xE254;</i></a>
+                                                                <% if(user.isBlocked == false) {%> 
+                                                                <a href="/user/block/<%= user._id %>" class="lock" title="Khoá" data-toggle="tooltip"><i class="fas fa-lock">&#xE254;</i></a>
+                                                                <% } %> 
+                                                                <% if(user.isBlocked == true) {%> 
+                                                                    <a href="/user/unblock/<%= user._id %>" class="unlock" title="Huỷ khoá" data-toggle="tooltip"><i class="fas fa-unlock">&#xE254;</i></a>
+                                                                <% } %> 
+                                                            </td>
+                                                        </tr>
+                                                    <% } %>
+                                                <% } else { %>
+                                                    <tr>
+                                                        <td>No data found</td>
+                                                    </tr>
+                                                <% } %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.container-fluid -->
+                </div>
+                <!-- End of Main Content -->
+                <%- include('../_partials/footer') %>
+            </div>
+            <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <%- include('../_partials/scripts')%>
+    
+    <!-- Page level plugins -->
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/js/demo/datatables-demo.js"></script>
+</body>
+
+</html>

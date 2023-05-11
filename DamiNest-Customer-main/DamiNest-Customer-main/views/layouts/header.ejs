@@ -1,0 +1,100 @@
+<header class="banner">
+  <div class="container">
+    <div class="banner-content">
+      <div class="left"></div>
+
+      <div class="logo">
+        <a href="/">
+          <img src="/images/logo-with-text.svg" height="56px" />
+        </a>
+      </div>
+
+      <div class="right">
+        <div class="right-item">
+          <a
+            href="#"
+            class="circle search"
+            data-bs-toggle="modal"
+            data-bs-target="#searchModal"
+          >
+            <i class="fas fa-search"></i>
+          </a>
+        </div>
+
+        <% if (isAuthenticated) { %> <%- include(layouts + '/user-dropdown'); %>
+        <% } %> <% if (!isAuthenticated) { %>
+        <div class="right-item">
+          <a href="/auth/login" class="circle auth">
+            <i class="fas fa-sign-in-alt"></i>
+          </a>
+        </div>
+        <% } %>
+
+        <div class="right-item">
+          <a href="/checkout/cart" class="circle cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-badge" class="hide"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="navbar-primary" id="navPrimary">
+  <div class="container">
+    <div class="navbar-primary-content">
+      <a href="/" itemid="home">Trang chủ</a>
+      <a href="/about" itemid="about">Giới thiệu</a>
+      <a href="/products" itemid="products">Sản phẩm</a>
+      <a href="/handbook" itemid="handbook">Cẩm nang</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Search Modal -->
+<div
+  class="modal fade"
+  id="searchModal"
+  tabindex="-1"
+  aria-labelledby="searchModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form method="get" action="/products/search">
+          <div class="modal-search-header">
+            <i class="fas fa-search"></i>
+            <h5 id="searchModalLabel">Tìm kiếm</h5>
+          </div>
+
+          <div class="input-group flex-nowrap">
+            <input
+              type="text"
+              name="keyword"
+              class="form-control"
+              aria-label="Tên sản phẩm"
+              id="global-input-search"
+              placeholder="yến sào, yến thô ..."
+              aria-describedby="button-search"
+              value="<%= searchKeyword %>"
+            />
+            <button class="btn btn-outline-secondary" id="button-search">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

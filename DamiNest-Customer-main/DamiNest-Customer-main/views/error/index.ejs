@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <%- include(layouts + '/head'); %>
+</head>
+
+<body id="error-page">
+  <%- include(layouts + '/header'); %>
+
+  <main>
+    <div class="container">
+      <div class="clearfix-32"></div>
+
+      <div class="alert alert-danger" role="alert">
+        <%= error.status %>
+        <%= message %>
+      </div>
+
+      <pre><%= error.stack %></pre>
+
+      <div class="clearfix-32"></div>
+    </div>
+  </main>
+</body>
+
+</html>

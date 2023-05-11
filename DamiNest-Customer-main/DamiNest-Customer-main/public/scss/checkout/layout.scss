@@ -1,0 +1,134 @@
+@import "../variables";
+
+.checkout-layout {
+  background: $primary;
+  min-height: 100vh;
+
+  .checkout-container {
+    background: #fff;
+    min-height: 100vh;
+  }
+
+  .checkout-header {
+    padding: 2rem 1rem;
+    border-bottom: 1px solid $border;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .steps {
+      display: flex;
+      align-items: center;
+
+      .step {
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        &:not(:last-child) {
+          flex: 1;
+
+          &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 2rem;
+            width: calc(100% - 2.5rem);
+            height: 1px;
+            background: $border;
+          }
+        }
+
+        .step-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          width: 1.5rem;
+          height: 1.5rem;
+          margin-right: 0.5rem;
+
+          border: 1px solid #9b9b9b;
+          border-radius: 50rem;
+
+          color: #9b9b9b;
+          background: #fff;
+
+          line-height: normal;
+          font-size: 0.875rem;
+        }
+
+        .step-label {
+          position: relative;
+          z-index: 1;
+          padding-right: 0.5rem;
+          background: #fff;
+          color: #9b9b9b;
+          line-height: normal;
+        }
+
+        &.done {
+          &:not(:last-child) {
+            &::after {
+              background-color: $primary;
+            }
+          }
+
+          .step-icon {
+            background: #fff;
+            border-color: $primary;
+            color: $primary;
+          }
+          .step-label {
+            color: #000;
+          }
+        }
+
+        &.active {
+          .step-icon {
+            background: $primary;
+            border-color: $primary;
+            color: #fff;
+          }
+          .step-label {
+            color: #000;
+            font-weight: $fontMedium;
+          }
+        }
+      }
+    }
+  }
+
+  .checkout-main {
+    padding: 2rem;
+  }
+
+  .checkout-panel {
+    border: 1px solid $border;
+    border-radius: $borderRadius;
+    box-shadow: rgba(0, 0, 0, 0.08) 1px 2px 8px;
+
+    .checkout-heading {
+      display: flex;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid $border;
+      line-height: normal;
+
+      h2 {
+        flex: 1;
+        margin: 0 1rem 0 0;
+        font-family: $fontFamilySecondary;
+        font-size: 1.125rem;
+      }
+    }
+
+    .checkout-body {
+      padding: 1.5rem 2rem;
+    }
+  }
+}

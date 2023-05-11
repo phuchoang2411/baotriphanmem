@@ -1,0 +1,29 @@
+<div class="review-item">
+  <div class="rv-owner">
+    <div class="rv-owner-avatar"></div>
+
+    <div class="rv-owner-info">
+      <div class="rv-owner-name">
+        <span>Đại Nguyễn</span>
+      </div>
+
+      <div class="rv-ratings">
+        <%- include(views + "/products/components/rating-stars", {
+          totalRatings: 10,
+          ratingAvg: 5,
+          hideAvgAndTotal: true
+        }); %>
+
+        <span class="rv-purchased">
+          <i class="fas fa-check-circle"></i> Đã mua hàng
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <p class="rv-content">
+    Sản phẩm đóng gói rất đẹp, sử dụng rất tốt cho sức khoẻ.
+  </p>
+
+  <div class="rv-created-at">3 tháng trước</div>
+</div>

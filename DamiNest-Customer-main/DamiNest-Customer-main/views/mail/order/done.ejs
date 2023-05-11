@@ -1,0 +1,13 @@
+<%- include('../layout/header') -%>
+
+<p class="hello">
+  Quý khách <%= order?.fullName %> có hài lòng với sản phẩm?
+</p>
+
+<p>
+  Yến Sào DamiNest rất mong quý khách có thể dành ít phút để nhận xét những sản phẩm bạn đã mua gần đây.
+</p>
+
+<%- include('../review/product-list', { products: order?.products || [] }) -%>
+
+<%- include('../layout/footer', { support: true }) -%>

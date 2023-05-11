@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <%- include(layouts + '/head'); %>
+
+    <link rel="stylesheet" href="/css/checkout/layout.css" />
+    <link rel="stylesheet" href="/css/checkout/payment.css" />
+  </head>
+
+  <body id="checkout-payment-page">
+    <div class="checkout-layout">
+      <div class="container">
+        <div class="checkout-container">
+          <header class="checkout-header">
+            <div class="row">
+              <div class="col col-12 col-md-8 offset-md-2">
+                <div class="logo">
+                  <a href="/">
+                    <img src="/images/logo-with-text.svg" height="56px" />
+                  </a>
+                </div>
+
+                <div class="steps">
+                  <a href="/checkout/cart" class="step done">
+                    <span class="step-icon">
+                      <i class="fas fa-check"></i>
+                    </span>
+                    <span class="step-label">Chọn sản phẩm</span>
+                  </a>
+
+                  <a href="/checkout/shipping" class="step done">
+                    <span class="step-icon">
+                      <i class="fas fa-check"></i>
+                    </span>
+                    <span class="step-label">Thông tin giao hàng</span>
+                  </a>
+
+                  <a href="#" class="step active">
+                    <span class="step-icon">3</span>
+                    <span class="step-label">Thanh toán</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <main class="checkout-main">
+            <div class="row">
+              <div class="col col-12 col-md-8 offset-md-2">
+                <form id="form-payment" method="POST">
+                  <div class="checkout-panel">
+                    <div class="checkout-heading">
+                      <h2>Phương thức thanh toán</h2>
+                    </div>
+
+                    <div class="checkout-body">
+                      <select
+                        class="form-select"
+                        name="paymentMethod"
+                        id="paymentMethod"
+                      >
+                        <option value="COD">Thanh toán khi nhận hàng</option>
+                        <option value="BANK_TRANSFER">
+                          Chuyển khoản ngân hàng
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="clearfix-32"></div>
+
+                  <div class="checkout-panel">
+                    <div class="checkout-heading">
+                      <h2>Thông tin giao hàng</h2>
+                      <div class="checkout-heading-right">
+                        <a href="/checkout/shipping">Chỉnh sửa</a>
+                      </div>
+                    </div>
+
+                    <div class="checkout-body">
+                      <div class="shipping-info">
+                        <div class="shipping-info-item">
+                          <span class="shipping-info-item-label">Họ tên</span>
+                          <span class="shipping-info-item-value"
+                            >Phúc Hoàng</span
+                          >
+                        </div>
+
+                        <div class="shipping-info-item">
+                          <span class="shipping-info-item-label"
+                            >Điện thoại</span
+                          >
+                          <span class="shipping-info-item-value"
+                            >0945094870</span
+                          >
+                        </div>
+
+                        <div class="shipping-info-item">
+                          <span class="shipping-info-item-label">Email</span>
+                          <span class="shipping-info-item-value"
+                            >phuchoang2411@gmail.com</span
+                          >
+                        </div>
+
+                        <div class="shipping-info-item">
+                          <span class="shipping-info-item-label"
+                            >Địa chỉ nhận hàng</span
+                          >
+                          <span class="shipping-info-item-value"
+                            >KP 1, P. Phú Tài, TP. Phan Thiết, T. Bình
+                            Thuận</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="clearfix-32"></div>
+
+                  <div class="checkout-panel">
+                    <div class="checkout-heading">
+                      <h2>Sản phẩm</h2>
+                      <div class="checkout-heading-right">
+                        <a href="/checkout/cart">Chỉnh sửa</a>
+                      </div>
+                    </div>
+
+                    <div class="checkout-body">
+                      <div class="products-info" id="products-info">
+                        <!-- <div class="checkout-product-item">
+                        <span class="quantity">2 x</span>
+                        <div class="info">
+                          <a class="title">Đây là tên sản phẩm</a>
+                          <span class="price">10.000 đ</span>
+                        </div>
+                      </div> -->
+                      </div>
+
+                      <div class="checkout-total">
+                        <span class="checkout-total-label">Thành tiền</span>
+                        <span class="checkout-total-price">
+                          <span class="value" id="total-price">10.000 đ</span>
+                          <span class="vat-included"
+                            >Đã bao gồm VAT nếu có</span
+                          >
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="clearfix-32"></div>
+
+                  <div class="d-grid">
+                    <button
+                      type="submit"
+                      class="btn-daminest primary"
+                      id="btn-submit"
+                      data-loading-text="Đang xử lí"
+                    >
+                      Đặt hàng
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <%- include(layouts + '/foot'); %>
+
+    <script src="/js/checkout.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        function updateCartTotal() {
+          $('#total-price').html(currencyFormatter(cartLS.total()));
+        }
+
+        function renderCartItems(items) {
+          $('#products-info').html(
+            items.map((item) => {
+              return `
+          <div class="checkout-product-item">
+            <span class="quantity">${item.quantity} x</span>
+            <div class="info">
+              <a href="/products/${item.id}" target="_blank" class="title">${
+                item.name
+              }</a>
+              <span class="price">${currencyFormatter(item.price)}</span>
+            </div>
+          </div>
+          `;
+            })
+          );
+        }
+
+        $('#form-payment').submit(function (event) {
+          event.preventDefault();
+
+          const shipping = checkoutLS.getShipping();
+
+          if (!shipping) {
+            toastr.warning('Vui lòng nhập thông tin giao hàng');
+            setTimeout(function () {
+              window.location = '/checkout/shipping';
+            }, 500);
+            return;
+          }
+
+          const paymentMethod = $('#paymentMethod').val();
+          const products = cartLS.list().map((p) => ({
+            productId: p.id,
+            quantity: p.quantity,
+          }));
+
+          const body = {
+            fullName: shipping.fullName,
+            phoneNumber: shipping.phoneNumber,
+            shippingAddress: shipping.shippingAddress,
+            products: products,
+            paymentMethod: paymentMethod,
+          };
+
+          $('#btn-submit').bootstrapBtn('loading');
+
+          $.ajax({
+            url: '/checkout/create-order',
+            type: 'POST',
+            data: body,
+            success: function (data) {
+              console.log('Checkout -> Success', data);
+              toastr.success('Đặt hàng thành công');
+
+              checkoutLS.clearShipping();
+              cartLS.destroy();
+
+              setTimeout(function () {
+                window.location = '/checkout/result?success=true';
+              }, 500);
+            },
+            error: function (error) {
+              console.log('Checkout -> Error', error);
+              toastr.error('Lỗi đặt hàng');
+              $('#btn-submit').bootstrapBtn('reset');
+
+              setTimeout(function () {
+                window.location = '/checkout/result?success=false';
+              }, 500);
+            },
+          });
+        });
+
+        updateCartTotal();
+        renderCartItems(cartLS.list());
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <%- include(layouts + '/head'); %>
+
+  <link rel="stylesheet" href="/css/products/index.css">
+</head>
+
+<body>
+  <%- include(layouts + '/header'); %>
+
+  <%- include(layouts + '/page-hero-unit', {
+    featuredImage: "/images/product/hero-unit.jpg",
+    heading: "Yến Sào Thất Sơn",
+    subHeading: null,
+    paragraph: "Yến Sào Sạch & Chất Lượng Cao",
+    buttonText: "Xem sản phẩm",
+    buttonLink: "#main"
+  }); %>
+
+  <main id="main">
+    <div class="container">
+      <div class="product-categories" id="categories">
+        <a href="/products" id="category-all">Tất cả</a>
+
+        <% categories.forEach(function(category) { %>
+          <a href="/products?categoryId=<%= category._id %>" id="<%= category._id %>"><%= category.name %></a>
+        <% }); %>
+      </div>
+
+      <!-- <div class="clearfix-"></div> -->
+
+      <% if (products.length > 0) { %>
+        <div class="row gx-3 gy-3">
+          <% products.forEach(function(product) { %>
+            <div class="col-12 col-md-6 col-lg-4">
+              <%- include('../products/components/product-item', { product }); %>
+            </div>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <div class="alert alert-warning mb-0" role="alert">
+          Không tìm thấy sản phẩm!
+        </div>
+      <% } %>
+
+      <% if(totalPages > 1) { %>
+        <div class="clearfix-32"></div>
+
+        <%- include(layouts + '/pagination', {
+          url: pageUrl,
+          current: page,
+          pages: totalPages,
+        }); %>
+      <% } %>
+
+      <div class="clearfix-56"></div>
+    </div>
+  </main>
+
+  <%- include(layouts + '/footer'); %>
+  <%- include(layouts + '/foot'); %>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#navPrimary [itemid="products"]').addClass('active');
+      $('#categories #<%= categoryId || "category-all" %>').addClass('active');
+    });
+  </script>
+</body>
+
+</html>

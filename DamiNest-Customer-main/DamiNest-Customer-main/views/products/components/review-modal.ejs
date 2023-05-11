@@ -1,0 +1,34 @@
+<!-- Review Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reviewModalLabel">Nhận xét sản phẩm</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form id="form-review">
+          <div class="mb-3">
+            <select id="rating">
+              <option value="1" data-html="Rất không hài lòng">1</option>
+              <option value="2" data-html="Không hài lòng">2</option>
+              <option value="3" data-html="Bình thường">3</option>
+              <option value="4" data-html="Hài lòng">4</option>
+              <option value="5" data-html="Cực kì hài lòng" selected>5</option>
+            </select>
+          </div>
+
+          <div class="form-group form-floating mb-3">
+            <textarea name="content" class="form-control" placeholder="Nhận xét" id="content" style="min-height: 100px;"></textarea>
+            <label for="content">Nhận xét</label>
+          </div>
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary" id="btn-submit-review" data-loading-text="Đang xử lí ...">Gửi nhận xét</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

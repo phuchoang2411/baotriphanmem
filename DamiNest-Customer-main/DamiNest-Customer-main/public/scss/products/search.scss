@@ -1,0 +1,85 @@
+@import "../variables";
+
+#product-search-page {
+  .col-filter {
+    position: -webkit-sticky; /* Required for Safari */
+    position: sticky;
+    top: var(--navbar-primary-height);
+
+    &-heading {
+      position: relative;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid $border;
+      font-family: $fontFamilySecondary;
+
+      // &::before {
+      //   content: "";
+      //   position: absolute;
+      //   bottom: 0.5rem;
+      //   left: -1rem;
+      //   width: 2rem;
+      //   height: 2rem;
+      //   border-radius: 50rem;
+      //   background-color: $secondary;
+      //   z-index: -1;
+      //   opacity: 0.25;
+      // }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .col-result {
+    &-heading {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid $border;
+
+      font-family: $fontFamilySecondary;
+
+      h2 {
+        font-size: 1.5rem;
+
+        .keyword {
+          color: $secondary;
+        }
+      }
+    }
+  }
+
+  .block-filter {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $border;
+
+    &-heading {
+      margin-bottom: 0.25rem;
+
+      span {
+        font-weight: $fontMedium;
+      }
+    }
+  }
+
+  .block-keyword {
+    .input-group-text {
+      background: #fff;
+    }
+  }
+
+  .block-price {
+    display: flex;
+
+    input {
+      width: 100%;
+      flex: 1;
+
+      &:not(:last-child) {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}

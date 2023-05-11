@@ -1,0 +1,41 @@
+<section class="page-hero-unit">
+  <div class="row gx-0">
+    <div class="col-12 col-lg-6">
+      <div class="left-content">
+        <div class="content">
+          <h1>
+            <%= heading %>
+            <span></span>
+          </h1>
+
+          <% if (paragraph) { %>
+            <p class="paragraph">
+              <%= paragraph %>
+            </p>
+          <% } %>
+
+          <% if (subHeading) { %>
+            <p class="sub-heading">
+              <%= subHeading %>
+            </p>
+          <% } %>
+
+          <% if (buttonText) { %>
+            <a
+              href="<%= buttonLink %>"
+              id="page-hero-unit-button"
+              class="btn-daminest secondary large"
+            >
+              <%= buttonText %>
+            </a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="featured-image-desktop" style="background-image: url('<%= featuredImage %>');"></div>
+      <img class="featured-image-mobile" style="width: 100vw; height: auto"></div>
+    </div>
+  </div>
+</section>

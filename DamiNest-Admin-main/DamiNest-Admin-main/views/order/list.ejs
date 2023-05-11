@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../_partials/header') %>
+    <title>Products</title>
+  </head>
+
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <%- include('../_partials/sidebar'); %>
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <%- include('../_partials/topbar'); %>
+          <!-- End of Topbar -->
+
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Đơn hàng</h1>
+            <p class="mb-4">Các đơn hàng yến sào.</p>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <div class="row justify-content-between">
+                  <div class="col-auto mr-auto">
+                    <h6 class="m-2 font-weight-bold text-primary">
+                      Các đơn hàng
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table
+                    class="table table-bordered"
+                    id="dataTable"
+                    width="100%"
+                    cellspacing="0"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Khách hàng</th>
+                        <th>SDT</th>
+                        <th>Địa chỉ</th>
+                        <th>Giá trị</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                      </tr>
+                    </thead>
+                    <tfoot>
+                      <tr>
+                        <th>Khách hàng</th>
+                        <th>SDT</th>
+                        <th>Địa chỉ</th>
+                        <th>Giá trị</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                      </tr>
+                    </tfoot>
+                    <tbody>
+                      <% if(orders.length> 0) { %> <% for(let order of orders) {
+                      %>
+                      <tr>
+                        <th scope="row"><%= order.fullName %></th>
+                        <td><%= order.phoneNumber %></td>
+                        <td><%= order.shippingAddress %></td>
+                        <td><%= order.total %></td>
+                        <td><%= order.status %></td>
+                        <td>
+                          <a
+                            href="/order/update-status/<%= order._id %>"
+                            class="edit"
+                            title="Edit"
+                            data-toggle="tooltip"
+                            ><i class="far fa-edit">&#xE254;</i></a
+                          >
+                        </td>
+                      </tr>
+                      <% } %> <% } else { %>
+                      <tr>
+                        <td>No data found</td>
+                      </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+        <%- include('../_partials/footer') %>
+      </div>
+      <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <%- include('../_partials/scripts')%>
+
+    <!-- Page level plugins -->
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/js/demo/datatables-demo.js"></script>
+  </body>
+</html>

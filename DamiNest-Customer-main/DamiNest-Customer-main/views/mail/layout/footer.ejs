@@ -1,0 +1,24 @@
+            <% if (support) { %>
+              <%- include('./support.ejs') -%>
+            <% } %>
+            <p class="thank-you"><%= typeof thankYou !== 'undefined' ? thankYou : trans('layout.footer.thankYou') %></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="footer">
+            <table class="full-width">
+              <tr>
+                <td>
+                  <span class="copyright">© <%= new Date().getFullYear() %> <%= trans('layout.companyName') %></span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

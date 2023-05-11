@@ -1,0 +1,49 @@
+/* SFProText */
+
+@font-face {
+  font-family: 'SFProText';
+  font-style: normal;
+  font-weight: 200;
+  src: url('./SFProText/subset-SFProText-Light.woff2') format('woff2'),
+  url('./SFProText/subset-SFProText-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'SFProText';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./SFProText/subset-SFProText-Regular.woff2') format('woff2'),
+  url('./SFProText/subset-SFProText-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'SFProText';
+  font-style: normal;
+  font-weight: 500;
+  src: url('./SFProText/subset-SFProText-Medium.woff2') format('woff2'),
+  url('./SFProText/subset-SFProText-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'SFProText';
+  font-style: normal;
+  font-weight: 600;
+  src: url('./SFProText/subset-SFProText-Semibold.woff2') format('woff2'),
+  url('./SFProText/subset-SFProText-Semibold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'SFProText';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./SFProText/subset-SFProText-Bold.woff2') format('woff2'),
+  url('./SFProText/subset-SFProText-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'SFProText';
+  font-style: normal;
+  font-weight: 800;
+  src: url('./SFProText/subset-SFProText-Heavy.woff2') format('woff2'),
+  url('./SFProText/subset-SFProText-Heavy.woff') format('woff');
+}

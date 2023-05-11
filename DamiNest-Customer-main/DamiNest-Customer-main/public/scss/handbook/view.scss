@@ -1,0 +1,41 @@
+@import "../variables";
+
+#handbook-view-page {
+  h1 {
+    font-family: $fontFamilySecondary;
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  // lg
+  @media (min-width: 960px) {
+    h1 {
+      font-size: 2.5rem;
+    }
+  }
+
+  .content {
+    position: relative;
+
+    // lg
+    @media (min-width: 960px) {
+      padding-top: 25%;
+    }
+  }
+
+  .featured-image {
+    width: 100vw;
+    height: auto;
+    margin-bottom: 1rem;
+
+    // lg
+    @media (min-width: 960px) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  }
+}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <%- include(layouts + '/head'); %>
+</head>
+
+<body id="handbook-page">
+  <%- include(layouts + '/header'); %>
+
+  <%- include(layouts + '/page-hero-unit', {
+    featuredImage: "/images/handbook/hero-unit.jpg",
+    heading: "Cẩm nang",
+    subHeading: null,
+    paragraph: "Chia sẻ cách sống khỏe giúp các bạn có thể tham khảo và nắm bắt rõ hơn để có một sức khỏe tuyệt vời",
+    buttonText: "Khám phá ngay",
+    buttonLink: "#main"
+  }); %>
+
+  <main id="main">
+    <div class="container">
+      <div class="clearfix-56"></div>
+
+      <div class="row gx-3 gy-3">
+        <% for(var i = 1; i <= 6; ++i) { %>
+          <div class="col-12 col-md-4">
+            <%- include('./components/post-item'); %>
+          </div>
+        <% }; %>
+      </div>
+
+      <div class="clearfix-56"></div>
+    </div>
+  </main>
+
+  <%- include(layouts + '/footer'); %>
+  <%- include(layouts + '/foot'); %>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#navPrimary [itemid="handbook"]').addClass('active');
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<div class="product-item">
+  <a href="/products/<%= product._id %>">
+    <div class="featured-image">
+      <img src="<%= getMediaUrl(product.featuredImage) %>" alt="<%= product.name %>" />
+    </div>
+  </a>
+
+  <h2 class="title">
+    <a href="/products/<%= product._id %>"><%= product.name %></a>
+  </h2>
+
+  <%- include("./rating-stars", {
+    totalRatings: product.totalRatings,
+    ratingAvg: product.ratingAvg
+  }); %>
+
+  <%- include("./price", {
+    price: product.price,
+    discount: product.discount
+  }); %>
+
+  <p class="description">
+    <%= product.description %>
+  </p>
+</div>

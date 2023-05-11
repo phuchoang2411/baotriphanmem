@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <%- include(layouts + '/head'); %>
+
+  <link rel="stylesheet" href="/fonts/FontAwesomePro/css/regular.min.css">
+  <link rel="stylesheet" href="/css/checkout/layout.css">
+  <link rel="stylesheet" href="/css/checkout/result.css">
+</head>
+
+<body id="checkout-result-page">
+  <div class="checkout-layout">
+    <div class="container">
+      <div class="checkout-container">
+        <header class="checkout-header">
+          <div class="row">
+            <div class="col col-12 col-md-8 offset-md-2">
+              <div class="logo">
+                <a href="/">
+                  <img src="/images/logo-with-text.svg" height="56px" />
+                </a>
+              </div>
+
+              <div class="steps">
+                <a href="#" class="step done">
+                  <span class="step-icon">
+                    <i class="fas fa-check"></i>
+                  </span>
+                  <span class="step-label">Chọn sản phẩm</span>
+                </a>
+
+                <a href="#" class="step done">
+                  <span class="step-icon">
+                    <i class="fas fa-check"></i>
+                  </span>
+                  <span class="step-label">Thông tin giao hàng</span>
+                </a>
+
+                <a href="#" class="step done">
+                  <span class="step-icon">
+                    <i class="fas fa-check"></i>
+                  </span>
+                  <span class="step-label">Thanh toán</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main class="checkout-main">
+          <div class="row">
+            <div class="col col-12 col-md-8 offset-md-2">
+              <% if (orderSuccess) { %>
+                <div class="checkout-result">
+                  <i class="far fa-check-circle"></i>
+
+                  <h2>Đặt hàng thành công</h2>
+                  <p>Đơn hàng của quý khách sẽ được xử lí trong 1 - 3 ngày.<br/>Vui lòng đợi chúng tôi liên hệ xác nhận đơn hàng.</p>
+
+                  <a href="/profile/purchases" class="btn-daminest primary">
+                    Xem đơn hàng
+                  </a>
+                </div>
+              <% } else { %>
+                <div class="checkout-result">
+                  <i class="far fa-exclamation-triangle"></i>
+
+                  <h2>Đặt hàng không thành công</h2>
+                  <p>Quý khách hãy thử lại sau. Xin lỗi quý khách vì sự cố đã gặp phải.</p>
+
+                  <a href="/profile/purchases" class="btn-daminest primary">
+                    Về trang chủ
+                  </a>
+                </div>
+              <% } %>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <%- include(layouts + '/foot'); %>
+</body>
+
+</html>

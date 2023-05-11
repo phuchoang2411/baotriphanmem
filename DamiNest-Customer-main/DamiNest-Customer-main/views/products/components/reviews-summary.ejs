@@ -1,0 +1,60 @@
+<div class="reviews-summary">
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <div class="rs-box rs-overall">
+        <span class="rs-overall-label">Đánh giá trung bình</span>
+
+        <span class="rs-overall-avg"><%= ratingAvg?.toFixed?.(1) %>/5</span>
+
+        <%- include(views + "/products/components/rating-stars", {
+          totalRatings: 10,
+          ratingAvg,
+          hideAvgAndTotal: true
+        }); %>
+
+        <span class="rs-overall-total"><%= totalRatings %> nhận xét</span>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div class="rs-box rs-details">
+        <% [5, 4, 3, 2, 1].forEach(function (item) { %>
+          <%
+            const percent = totalRatings > 0
+              ? ((ratingStat?.[item] || 0) * 100 / totalRatings).toFixed(0)
+              : 0;
+
+            const style = `style="width: ${percent}%;"`;
+          %>
+
+          <div class="rs-details-item">
+            <span class="rs-details-item-label">
+              <span><%= item %></span>
+              <i class="fas fa-star"></i>
+            </span>
+
+            <div class="rs-details-item-progress progress">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                <%- style %>
+                aria-valuenow="<%= percent %>"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+
+            <span class="rs-details-item-percent"><%= percent %>%</span>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div class="rs-box rs-write-review">
+        <span class="rs-write-review-label">Nhận xét sản phẩm</span>
+        <button class="btn-daminest primary" id="btn-write-review" data-loading-text="Đang kiểm tra ...">Viết nhận xét</button>
+      </div>
+    </div>
+  </div>
+</div>

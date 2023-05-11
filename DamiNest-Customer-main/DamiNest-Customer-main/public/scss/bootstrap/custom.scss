@@ -1,0 +1,12 @@
+$border-radius: 0.5rem;
+$primary: #841206;
+
+$input-disabled-bg: #f5f5f5;
+$table-hover-bg: #f5f5f5;
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+.g-8,
+.gx-8 {
+  --bs-gutter-x: 2rem;
+}

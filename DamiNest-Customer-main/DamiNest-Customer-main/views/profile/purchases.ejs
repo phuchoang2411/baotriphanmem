@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <%- include(layouts + '/head'); %>
+
+  <link rel="stylesheet" href="/css/auth/index.css">
+  <link rel="stylesheet" href="/css/profile/purchases.css">
+</head>
+
+<body id="purchases-page">
+  <%- include(layouts + '/header'); %>
+
+  <main>
+    <div class="clearfix-32"></div>
+
+    <div class="container">
+      <div class="row gx-8">
+        <div class="col-12 col-md-3">
+          <%- include(views + '/profile/components/sidebar'); %>
+        </div>
+
+        <div class="col-12 col-md-9">
+          <h1 class="page-heading">Đơn mua</h1>
+
+          <div class="table-responsive">
+            <div class="table-purchases">
+              <% if (Array.isArray(purchases) && purchases?.length > 0) { %>
+                <table class="table align-middle table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">TT</th>
+                      <th scope="col">Đơn hàng</th>
+                      <th scope="col">Thành tiền</th>
+                      <th scope="col">Trạng thái</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% purchases.forEach(function (order, index) { %>
+                      <tr>
+                        <td scope="row"><%= index + 1 %></td>
+
+                        <td>
+                          <label class="mb-1">Đặt ngày <%= dayjs(order.createdAt).format('DD/MM/YYYY HH:mm') %></label>
+
+                          <ul class="mb-0">
+                            <% order.products.forEach(function (product) { %>
+                              <li><span class="me-2"><%= product.quantity %> x</span><a href="/products/<%= product.productId %>"><%= product.name %></a></li>
+                            <% }) %>
+                          </ul>
+                        </td>
+
+                        <td><%= currencyFormatter.format(order.total) %></td>
+                        <td><%= order.status %></td>
+                      </tr>
+                    <% }) %>
+                  </tbody>
+                </table>
+              <% } else { %>
+                <div class="alert alert-warning mb-0" role="alert">
+                  Bạn chưa có đơn hàng nào.
+                </div>
+              <% } %>
+
+              <% if(totalPages > 1) { %>
+                <div class="clearfix-16"></div>
+
+                <%- include(layouts + '/pagination', {
+                  url: pageUrl,
+                  current: page,
+                  pages: totalPages,
+                }); %>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix-32"></div>
+  </main>
+
+  <%- include(layouts + '/foot'); %>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#sidebar-profile [itemid="purchases"]').addClass('active');
+    });
+  </script>
+</body>
+
+</html>

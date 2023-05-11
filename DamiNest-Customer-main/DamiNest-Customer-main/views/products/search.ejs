@@ -1,0 +1,193 @@
+<%
+  const SORT_OPTIONS = [
+    {
+      label: 'Mới nhất',
+      value: 'createdAt:desc'
+    },
+    {
+      label: 'Bán chạy',
+      value: 'totalPurcharses:desc'
+    },
+    {
+      label: 'Giá : cao đến thấp',
+      value: 'price:desc'
+    },
+    {
+      label: 'Giá : thấp đến cao',
+      value: 'price:asc'
+    }
+  ]
+%>
+
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <%- include(layouts + '/head'); %>
+
+  <link rel="stylesheet" href="/css/products/index.css">
+  <link rel="stylesheet" href="/css/products/search.css">
+</head>
+
+<body id="product-search-page">
+  <%- include(layouts + '/header'); %>
+
+  <main>
+    <div class="container">
+      <div class="row gx-8">
+        <div class="col-12 col-md-3">
+          <div class="col-filter">
+            <div class="clearfix-32"></div>
+
+            <div class="col-filter-heading">
+              <h2>Bộ lọc tìm kiếm</h2>
+            </div>
+
+            <form method="get">
+              <div class="block-filter">
+                <div class="input-group flex-nowrap block-keyword">
+                  <input type="text" name="keyword" class="form-control" aria-label="Tên sản phẩm" placeholder="Tên sản phẩm ..." aria-describedby="button-search" value="<%= formValues.keyword %>">
+                  <button class="btn btn-outline-secondary" id="button-search">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="block-filter">
+                <div class="block-filter-heading">
+                  <span>Theo chuyên mục</span>
+                </div>
+
+                <% categories.forEach(function(category) { %>
+                  <%
+                    const isChecked = Array.isArray(formValues.categoryId)
+                      ? formValues.categoryId.includes(String(category._id))
+                      : String(category._id) === String(formValues.categoryId)
+                  %>
+                  <div class="form-check">
+                    <input
+                      type="checkbox"
+                      name="categoryId"
+                      value="<%= category._id %>"
+                      class="form-check-input"
+                      id="<%= category._id %>"
+                      <%= isChecked ? 'checked="true"' : '' %>
+                    >
+
+                    <label class="form-check-label" for="<%= category._id %>">
+                      <%= category.name %>
+                    </label>
+                  </div>
+                <% }) %>
+              </div>
+
+              <div class="block-filter">
+                <div class="block-filter-heading">
+                  <span>Khoảng giá</span>
+                </div>
+
+                <div class="block-price">
+                  <input type="number" name="priceMin" value="<%= formValues.priceMin %>" class="form-control" id="priceMin" placeholder="₫ Từ">
+                  <input type="number" name="priceMax" value="<%= formValues.priceMax %>" class="form-control" id="priceMax" placeholder="₫ Đến">
+                </div>
+              </div>
+
+              <div class="block-filter">
+                <div class="block-filter-heading">
+                  <span>Sắp xếp theo</span>
+                </div>
+
+                <% SORT_OPTIONS.forEach(function(item) { %>
+                  <% const isChecked = item.value === formValues.sort %>
+
+                  <div class="form-check">
+                    <input
+                      type="radio"
+                      class="form-check-input"
+                      id="<%= item.value %>"
+                      name="sort"
+                      value="<%= item.value %>"
+                      <%= isChecked ? 'checked="true"' : '' %>
+                    >
+                    <label class="form-check-label" for="<%= item.value %>"><%= item.label %></label>
+                  </div>
+                <% }) %>
+              </div>
+
+              <div class="d-grid gap-2">
+                <button class="btn btn-primary">Áp dụng</button>
+                <button class="btn btn-outline-primary" type="reset" id="btn-clear-filter">Xoá tất cả</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-9 col-result">
+          <div class="clearfix-32"></div>
+
+          <% if (formValues.keyword) { %>
+            <div class="col-result-heading">
+              <h2>
+                Kết quả tìm kiếm cho từ khoá <span class="keyword">'<%= formValues.keyword %>'</span>
+              </h2>
+            </div>
+          <% } %>
+
+          <% if (products.length > 0) { %>
+            <div class="row gx-3 gy-3">
+              <% products.forEach(function(product) { %>
+                <div class="col-12 col-md-6">
+                  <%- include('../products/components/product-item', { product }); %>
+                </div>
+              <% }); %>
+            </div>
+          <% } else { %>
+            <div class="alert alert-warning mb-0" role="alert">
+              Không tìm thấy sản phẩm!
+            </div>
+          <% } %>
+
+          <% if(totalPages > 1) { %>
+            <div class="clearfix-32"></div>
+
+            <%- include(layouts + '/pagination', {
+              url: pageUrl,
+              current: page,
+              pages: totalPages,
+            }); %>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="clearfix-56"></div>
+    </div>
+  </main>
+
+  <%- include(layouts + '/footer'); %>
+  <%- include(layouts + '/foot'); %>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#navPrimary [itemid="products"]').addClass('active');
+
+      $('input[name=categoryId]').on('change', function (item) {
+        const categoryId = [];
+        $.each($("input[name=categoryId]:checked"), function () {
+          categoryId.push($(this).val());
+        });
+        console.log('categoryId', categoryId);
+      });
+
+      $('input[name=sort]').on('change', function (item) {
+        const sort = $(this).val();
+        console.log('sort', sort);
+      });
+
+      $('#btn-clear-filter').on('click', function () {
+        window.location = '/products/search?keyword=<%= formValues.keyword %>';
+      });
+    });
+  </script>
+</body>
+
+</html>

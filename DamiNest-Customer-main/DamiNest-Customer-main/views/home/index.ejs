@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <%- include(layouts + '/head'); %>
+
+  <link rel="stylesheet" href="/css/home/index.css">
+</head>
+
+<body id="home-page">
+  <%- include(layouts + '/header'); %>
+
+  <%- include(views + '/home/components/hero-unit'); %>
+  <%- include(views + '/home/components/intro-1'); %>
+  <%- include(views + '/home/components/intro-2'); %>
+  <%- include(views + '/home/components/products', { products }); %>
+
+  <%- include(layouts + '/footer'); %>
+  <%- include(layouts + '/foot'); %>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#navPrimary [itemid="home"]').addClass('active');
+    });
+  </script>
+</body>
+
+</html>

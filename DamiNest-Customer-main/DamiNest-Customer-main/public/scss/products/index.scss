@@ -1,0 +1,38 @@
+@import "../variables";
+
+.product-categories {
+  position: -webkit-sticky; /* Required for Safari */
+  position: sticky;
+  z-index: 50;
+  top: var(--navbar-primary-height);
+  background-color: #fff;
+
+  list-style-type: none;
+  padding: 1rem 1rem 0.5rem 1rem;
+  margin-bottom: 1rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 0 0 $borderRadius $borderRadius;
+  box-shadow: $shadow;
+
+  a {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    line-height: normal;
+    background: #f5f5f5;
+    padding: 0 1.5rem;
+    border-radius: 50rem;
+    color: #000;
+    margin-bottom: 0.5rem;
+    margin-right: 1rem;
+    font-weight: $fontMedium;
+
+    &.active {
+      background: $secondary;
+      color: $primary;
+      font-weight: $fontMedium;
+    }
+  }
+}

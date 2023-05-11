@@ -1,0 +1,15 @@
+<%- include('../layout/header') -%>
+
+<p class="hello">Đơn hàng đã sẵn sàng để giao đến quý khách <%= order?.fullName %>,</p>
+
+<p>
+  Chúng tôi vừa bàn giao đơn hàng của quý khách đến đối tác vận chuyển.
+</p>
+
+<p>
+  Quý khách có thể kiểm tra ngoại quan sản phẩm <i>(nhãn hiệu, mẫu mã, màu sắc, số lượng, ...)</i> trước khi thanh toán và có thể từ chối nhận hàng nếu không ưng ý. Vui lòng không dùng thử sản phẩm.
+</p>
+
+<%- include('order') -%>
+
+<%- include('../layout/footer', { support: true }) -%>

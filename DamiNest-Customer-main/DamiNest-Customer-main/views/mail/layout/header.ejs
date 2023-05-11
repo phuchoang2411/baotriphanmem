@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>Yến Sào DamiNest</title>
+
+  <style>
+    .daminest-mail {
+      line-height: 1.5;
+      min-width: 348px;
+      background: #f7f7f7;
+      font-family: Roboto-Regular, Helvetica, Arial, sans-serif;
+    }
+    .daminest-mail-td {
+      padding: 32px;
+    }
+
+    /* Source : https://www.hteumeuleu.com/2021/fixing-gmail-dark-mode-css-blend-modes/ */
+    .gmail-blend-screen {
+      background: #000;
+      mix-blend-mode: screen;
+    }
+    .gmail-blend-difference {
+      background: #000;
+      mix-blend-mode: difference;
+    }
+
+    .heading {
+      color: #841206;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 16px;
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #841206;
+    }
+
+    a.btn {
+      height: 40px;
+      line-height: 40px;
+      display: block;
+      background: #841206;
+      background-image: linear-gradient(#841206,#841206);
+      padding: 0px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #fff;
+      text-align: center;
+    }
+    a.btn.outline {
+      display: block;
+      border: 1px solid #841206;
+      background: #fff;
+      color: #841206;
+    }
+
+    p {
+      color: #000;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    table {
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+    table.full-width {
+      width: 100%;
+    }
+    table.align-center {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    table.bordered tr td {
+      padding: 16px 0;
+      border-top: 1px solid #eee;
+    }
+
+    .container {
+      width: 600px;
+      max-width: 600px;
+    }
+
+    .header {
+      padding: 24px 32px;
+      border-radius: 8px 8px 0 0;
+      border-bottom: 1px solid #eee;
+      background: #fafbfb;
+    }
+
+    .body {
+      padding: 24px 32px;
+      background: #fff;
+    }
+
+    .footer {
+      background: #fafbfb;
+      padding: 24px 32px;
+      border-top: 1px solid #eee;
+      border-radius: 0 0 8px 8px;
+      color: #888;
+    }
+
+    .footer .copyright {
+      display: block;
+      display: -webkit-box;
+      max-width: 100%;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .thank-you {
+      margin-bottom: 0 !important;
+      font-weight: 600;
+    }
+
+    .support a,
+    .support strong {
+      color: #D4AA5F;
+    }
+
+    .hello {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .order .status {
+      border-bottom: 2px dotted #bfbfbf;
+    }
+
+    @media screen and (max-width: 599px) {
+      .container {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .daminest-mail-td {
+        padding: 0px;
+      }
+      .header {
+        padding: 16px 24px;
+      }
+      .body {
+        padding: 16px 24px;
+      }
+      .footer {
+        padding: 16px 24px;
+      }
+    }
+
+    @media screen and (max-width: 400px) {}
+  </style>
+</head>
+
+<body style="padding: 0; margin: 0;">
+  <table class="daminest-mail full-width">
+    <tr>
+      <td class="daminest-mail-td">
+        <table class="container full-width align-center">
+          <tr>
+            <td class="header">
+              <a href="<%= getWebCustomerUrl() %>" target="_blank">
+                <img
+                  src="<%= trans('layout.header.logo') %>"
+                  height="40"
+                  alt="<%= trans('layout.companyName') %>"
+                />
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td class="body">

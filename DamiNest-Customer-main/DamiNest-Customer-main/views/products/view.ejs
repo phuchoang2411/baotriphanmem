@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <%- include(layouts + '/head'); %>
+
+    <link rel="stylesheet" href="/css/products/view.css" />
+    <link
+      rel="stylesheet"
+      href="/libs/jquery-bar-rating/themes/fontawesome-stars.css"
+    />
+    <link rel="stylesheet" href="/libs/pagination/pagination.css" />
+  </head>
+
+  <body id="product-view-page">
+    <%- include(layouts + '/header'); %>
+
+    <main>
+      <div class="container">
+        <div class="row gx-0 product-view">
+          <div class="col-12 col-lg-6">
+            <div class="featured-image">
+              <img
+                src="<%= getMediaUrl(product.featuredImage) %>"
+                alt="<%= product.name %>"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-6">
+            <div class="product-info">
+              <h2 class="title">
+                <a><%= product.name %></a>
+              </h2>
+
+              <%- include(views + "/products/components/rating-stars", {
+              totalRatings: product.totalRatings, ratingAvg: product.ratingAvg
+              }); %> <%- include(views + "/products/components/price", { price:
+              product.price, discount: product.discount }); %>
+
+              <p class="description"><%= product.description %></p>
+
+              <div class="number-of-product">
+                <label>Số lượng :</label>
+
+                <div class="input-quantity" style="flex: 1">
+                  <a class="input-quantity-action" id="dec-quantity">
+                    <i class="fas fa-minus"></i>
+                  </a>
+
+                  <div class="input-quantity-value">
+                    <span>
+                      <input
+                        type="number"
+                        id="quantity"
+                        value="1"
+                        class="text-center hide-spin-button"
+                      /><strong>sản phẩm</strong>
+                    </span>
+                  </div>
+
+                  <a class="input-quantity-action" id="inc-quantity">
+                    <i class="fas fa-plus"></i>
+                  </a>
+                </div>
+              </div>
+
+              <button class="btn-daminest primary" id="btn-add-to-cart">
+                <i class="fas fa-shopping-cart" style="margin-right: 8px"></i
+                >Thêm vào giỏ hàng
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="section properties">
+          <h3 class="heading">
+            Thông tin chi tiết
+            <span></span>
+          </h3>
+
+          <%- include(views + "/products/components/product-property-item", {
+          label: "Thành phần", value: product.ingredient }); %> <%-
+          include(views + "/products/components/product-property-item", { label:
+          "Khối lượng", value: product.mass }); %> <%- include(views +
+          "/products/components/product-property-item", { label: "Công dụng",
+          value: product.uses }); %> <%- include(views +
+          "/products/components/product-property-item", { label: "Bảo quản",
+          value: product.preservation }); %> <%- include(views +
+          "/products/components/product-property-item", { label: "Hạn sử dụng",
+          value: product.expiryDate }); %> <%- include(views +
+          "/products/components/product-property-item", { label: "Xuất xứ",
+          value: product.origin }); %>
+
+          <div class="property-item">
+            <label class="property-item-label"
+              >Sản phẩm của Công Ty TNHH MTV Yến Sào DamiNest</label
+            >
+            <span class="property-item-value"
+              >Địa chỉ : KTX Khu B - ĐHQG HCM, Linh Trung, Thủ Đức, HCM</span
+            >
+            <span class="property-item-value">Hotline : 0945 094 870</span>
+          </div>
+
+          <div class="commitment">
+            <div class="row gx-3">
+              <div class="col-12 col-md-4">
+                <div class="commitment-item">
+                  <i class="fas fa-shipping-fast"></i>
+                  <span>Miễn phí giao hàng</span>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-4">
+                <div class="commitment-item">
+                  <i class="fas fa-award"></i>
+                  <span>Đảm bảo chất lượng 100%</span>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-4">
+                <div class="commitment-item">
+                  <i class="fas fa-reply"></i>
+                  <span>Đổi trả trong vòng 30 ngày</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3 class="heading">
+            Khách hàng nhận xét
+            <span></span>
+          </h3>
+
+          <%- include(views + '/products/components/reviews-summary', {
+          totalRatings: product.totalRatings, ratingAvg: product.ratingAvg,
+          ratingStat: product?.ratingStat }); %>
+
+          <div class="reviews" id="reviews"></div>
+          <div id="reviews-pagination"></div>
+        </div>
+
+        <div class="related-products">
+          <h3 class="heading heading-reverse">
+            Sản phẩm liên quan
+            <span></span>
+          </h3>
+
+          <div class="row gx-3 gy-3">
+            <% relatedProducts.forEach(function(relatedProduct) { %>
+            <div class="col-12 col-md-4">
+              <%- include(views + '/products/components/product-item', {
+              product: relatedProduct }); %>
+            </div>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <%- include(views + '/products/components/review-modal'); %> <%-
+    include(layouts + '/footer'); %> <%- include(layouts + '/foot'); %>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="/libs/jquery-bar-rating/jquery.barrating.min.js"></script>
+
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/locale/vi.js"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/plugin/relativeTime.js"></script>
+
+    <script src="/libs/pagination/pagination.min.js"></script>
+
+    <script type="text/javascript">
+      const MIN_QUANTITY = 1;
+      const MAX_QUANTITY = 10;
+
+      // Dayjs locale
+      dayjs.locale('vi');
+
+      // Dayjs plugins
+      dayjs.extend(window.dayjs_plugin_relativeTime);
+
+      function getQuantity() {
+        return parseInt($('#quantity').val());
+      }
+
+      function updateQuantity(value) {
+        const current = getQuantity();
+        if (
+          (value < 0 && current > MIN_QUANTITY) ||
+          (value > 0 && current < MAX_QUANTITY)
+        ) {
+          $('#quantity').val(current + value);
+        }
+      }
+
+      $(document).ready(function () {
+        $('#navPrimary [itemid="products"]').addClass('active');
+
+        cartLS.onChange(function (items) {
+          updateCartBadge();
+        });
+
+        $('#inc-quantity').on('click', function () {
+          updateQuantity(1);
+        });
+
+        $('#dec-quantity').on('click', function () {
+          updateQuantity(-1);
+        });
+
+        $('#btn-add-to-cart').on('click', function () {
+          const quantity = getQuantity();
+
+          toastr.info('Đang thêm vào giỏ hàng');
+
+          $.ajax({
+            url: '/checkout/cart/add',
+            type: 'PUT',
+            data: {
+              productId: '<%= product._id %>',
+              quantity: quantity,
+            },
+            success: function (data) {
+              console.log('addToCart -> Success', data);
+              cartLS.add(data, quantity);
+              toastr.success('Đã thêm vào giỏ hàng');
+            },
+            error: function (error) {
+              console.log('addToCart -> Error', error);
+              toastr.error('Lỗi thêm vào giỏ hàng');
+            },
+          });
+        });
+
+        // Review
+
+        $('#rating').barrating({
+          initialRating: 5,
+          theme: 'fontawesome-stars',
+          showSelectedRating: true,
+        });
+
+        const reviewModalEl = $('#reviewModal');
+        const reviewModal = new bootstrap.Modal(reviewModalEl);
+
+        reviewModalEl.on('shown.bs.modal', function () {
+          $('#form-review #content').focus();
+        });
+
+        $('#btn-write-review').on('click', function () {
+          const that = this;
+          const userId = '<%= currentUser?._id %>';
+
+          if (!userId) {
+            alertify
+              .confirm(
+                'Thông báo',
+                'Bạn cần đăng nhập để đánh giá sản phẩm này.',
+                function () {
+                  // onOk
+                  window.location = '/auth/login?nextUrl=<%= currentUrl %>';
+                }
+              )
+              .set('labels', { ok: 'Đăng nhập', cancel: 'Đóng' });
+            return;
+          }
+
+          $(that).bootstrapBtn('loading');
+
+          const body = {
+            userId: userId,
+            productId: '<%= product._id %>',
+          };
+
+          $.ajax({
+            url: '/product-review/check-can-review',
+            type: 'POST',
+            data: body,
+            success: function (data) {
+              console.log('checkCanReview -> Success', data);
+              $(that).bootstrapBtn('reset');
+
+              if (!data.canReview) {
+                alertify.alert('Thông báo', data.message);
+              } else {
+                reviewModal.show();
+              }
+            },
+            error: function (error) {
+              console.log('checkCanReview -> Error', error);
+              $(that).bootstrapBtn('reset');
+              alertify.alert('Thông báo', error.responseJSON.message);
+            },
+          });
+        });
+
+        $('#form-review').validate({
+          rules: {
+            content: {
+              maxlength: 200,
+            },
+          },
+          messages: {
+            content: {
+              maxlength: 'Nội dung nhận xét phải ít hơn 150 kí tự',
+            },
+          },
+
+          errorElement: 'div',
+          errorClass: 'is-invalid',
+
+          submitHandler: function (form) {
+            const formEl = $('#form-review');
+
+            const body = {
+              productId: '<%= product._id %>',
+              rating: parseInt(formEl.find('#rating').val()),
+              content: formEl.find('#content').val(),
+            };
+
+            $('#btn-submit-review').bootstrapBtn('loading');
+
+            $.ajax({
+              url: '/product-review',
+              type: 'POST',
+              data: body,
+              success: function (data) {
+                console.log('submitReview -> Success', data);
+                $('#btn-submit-review').bootstrapBtn('reset');
+                reviewModal.hide();
+
+                alertify.alert(
+                  'Thành công',
+                  'Gửi nhận xét thành công, nhận xét của quý khách sẽ được kiểm duyệt trong thời gian sớm nhất.',
+                  function () {
+                    // Reset form
+                    $('#rating').barrating('clear');
+                    $('#content').val('');
+                  }
+                );
+              },
+              error: function (error) {
+                console.log('submitReview -> Error', error);
+                $('#btn-submit-review').bootstrapBtn('reset');
+
+                alertify.alert(
+                  'Đã xảy ra lỗi',
+                  'Gửi nhận xét không thành công, quý khách hãy thử lại sau.'
+                );
+              },
+            });
+          },
+        });
+
+        function renderLoadingReviews() {
+          $('#reviews').html(
+            `<div class="loading">
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </div>`
+          );
+        }
+
+        function renderEmptyReviews() {
+          $('#reviews').html(`
+          <div class="alert alert-warning" role="alert">
+            Chưa có đánh giá nào cho sản phẩm này.
+          </div>
+        `);
+        }
+
+        function renderReviews(docs) {
+          const hasData = Array.isArray(docs) && docs.length > 0;
+
+          if (!hasData) {
+            renderEmptyReviews();
+            return;
+          }
+
+          const html = docs.map((item) => {
+            const ratingStars = getRatingStarsHTML({
+              totalRatings: 10,
+              ratingAvg: item.rating,
+              hideAvgAndTotal: true,
+            });
+
+            return `
+            <div class="review-item">
+              <div class="rv-owner">
+                <div class="rv-owner-avatar avatar">
+                  <span>${item.ownerId.fullName.slice(0, 1)}</span>
+                </div>
+
+                <div class="rv-owner-info">
+                  <div class="rv-owner-name">
+                    <span>${item.ownerId.fullName}</span>
+                  </div>
+
+                  <div class="rv-ratings">
+                    ${ratingStars}
+
+                    <span class="rv-purchased">
+                      <i class="fas fa-check-circle"></i> Đã mua hàng
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <p class="rv-content">
+                ${_.escape(item.content)}
+              </p>
+
+              <div class="rv-created-at">${dayjs(
+                item.createdAt
+              ).fromNow()}</div>
+            </div>
+          `;
+          });
+
+          $('#reviews').html(html);
+        }
+
+        $('#reviews-pagination').pagination({
+          dataSource: '/products/<%= product._id %>/reviews',
+          locator: 'docs',
+          totalNumber: 1,
+          pageSize: 10,
+          alias: {
+            pageNumber: 'page',
+            pageSize: 'limit',
+          },
+
+          className: 'paginationjs-big',
+          ulClassName: 'pagination',
+          prevText: '<i class="fas fa-chevron-left"></i>',
+          nextText: '<i class="fas fa-chevron-right"></i>',
+
+          ajax: {
+            beforeSend: function () {
+              renderLoadingReviews();
+            },
+          },
+
+          totalNumberLocator: function (response) {
+            return response.totalDocs;
+          },
+
+          callback: function (data, pagination) {
+            renderReviews(data);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

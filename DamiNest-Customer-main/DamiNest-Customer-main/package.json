@@ -1,0 +1,57 @@
+{
+  "name": "daminest",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon ./bin/www",
+    "start": "node ./bin/www",
+    "sass:watch": "sass --watch public/scss:public/css --style compressed",
+    "heroku:logs": "heroku logs --tail --app daminest",
+    "pm2:start": "pm2 start ./ecosystem.config.js --env production ; pm2 status",
+    "pm2:reload": "pm2 reload ./ecosystem.config.js --env production ; pm2 status",
+    "pm2:stop": "pm2 stop ./ecosystem.config.js --env production ; pm2 status"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "bcrypt": "^5.0.1",
+    "bootstrap": "^5.1.3",
+    "connect-mongo": "3.2.0",
+    "cookie-parser": "~1.4.4",
+    "dayjs": "^1.10.7",
+    "debug": "~2.6.9",
+    "dotenv": "^10.0.0",
+    "ejs": "~2.6.1",
+    "ejs-promise": "^0.3.3",
+    "express": "~4.16.1",
+    "express-boom": "^3.0.0",
+    "express-session": "^1.17.2",
+    "http-errors": "~1.6.3",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "mailgun-js": "^0.22.0",
+    "mongoose": "^6.0.13",
+    "mongoose-paginate-v2": "^1.4.2",
+    "morgan": "~1.9.1",
+    "nanoid": "^3.1.30",
+    "passport": "^0.5.0",
+    "passport-local": "^1.0.0",
+    "query-string": "^7.0.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "nodemon": "^2.0.15",
+    "sass": "^1.43.4",
+    "standard": "^16.0.4"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "global": [
+      "$",
+      "scrollToElement",
+      "fetch"
+    ],
+    "ignore": [
+      "public/**/*.js"
+    ]
+  }
+}

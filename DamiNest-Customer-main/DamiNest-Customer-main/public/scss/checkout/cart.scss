@@ -1,0 +1,156 @@
+@import "../variables";
+
+#checkout-cart-page {
+  .heading {
+    display: flex;
+    align-items: center;
+
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 0.25rem solid $border;
+
+    h1 {
+      flex: 1;
+      margin: 0;
+
+      font-family: $fontFamilySecondary;
+      font-size: 1.5rem;
+      color: $primary;
+    }
+
+    button {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: $primary;
+    }
+  }
+
+  .fixed-bottom {
+    position: fixed;
+    bottom: 0;
+
+    width: 100%;
+
+    .content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 16px 0;
+
+      border-top-left-radius: $borderRadius;
+      border-top-right-radius: $borderRadius;
+      box-shadow: rgba(0, 0, 0, 0.08) 1px -2px 8px;
+      background: #fff;
+
+      .total {
+        display: flex;
+        align-items: baseline;
+        padding: 0 16px;
+
+        color: $primary;
+
+        &-label {
+          font-weight: $fontMedium;
+          margin-right: 0.5rem;
+        }
+
+        &-value {
+          font-weight: $fontBold;
+          font-size: 1.5rem;
+        }
+      }
+
+      .vat-included {
+        padding: 8px;
+        color: #9b9b9b;
+      }
+
+      .next-step {
+        padding: 0 16px;
+      }
+    }
+  }
+
+  .cart-product-item {
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    background: #fff;
+    border-radius: $borderRadius;
+    box-shadow: rgba(0, 0, 0, 0.08) 1px 2px 8px;
+
+    .featured-image {
+      img {
+        object-fit: cover;
+        width: 256px;
+        height: 200px;
+        object-position: center center;
+      }
+    }
+
+    .info {
+      flex: 1;
+      padding: 1rem 2rem;
+
+      a {
+        color: #000;
+      }
+
+      h2 {
+        font-size: 1.125rem;
+        font-weight: $fontBold;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+      }
+
+      .price {
+        margin-bottom: 0.5rem;
+        font-size: 1.125rem;
+        font-weight: $fontBold;
+
+        span {
+          color: $primary;
+        }
+      }
+
+      .btn-delete {
+        background: transparent;
+        border: 0;
+        padding: 0;
+        color: $textGray;
+      }
+    }
+
+    .quantity {
+      padding-right: 2rem;
+      display: flex;
+      align-items: center;
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 2rem;
+        height: 2rem;
+
+        border: 0;
+        border-radius: 50rem;
+        background-color: #eee;
+        font-size: 0.875rem;
+      }
+
+      span {
+        width: 3rem;
+        display: flex;
+        justify-content: center;
+        font-weight: $fontMedium;
+      }
+    }
+  }
+}

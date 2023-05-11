@@ -1,0 +1,8 @@
+<%- include('../layout/header') -%>
+
+<p><strong><%= order?.fullName %></strong> (<%= order?.phoneNumber %>) vừa đặt hàng.</p>
+<p>Vui lòng xem thông tin đơn hàng bên dưới và tiến hành xử lí đơn hàng.</p>
+
+<%- include('order') -%>
+
+<%- include('../layout/footer', { support: false, thankYou: 'Developer Team.' }) -%>
