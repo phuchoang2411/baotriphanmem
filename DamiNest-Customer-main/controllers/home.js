@@ -13,8 +13,8 @@ const index = async (req, res) => {
     }
   );
 
-  res.send({ products: docs });
-  // res.render('home/index', { products: docs });
+  // res.send({ products: docs });
+  res.render('home/index', { products: docs });
 };
 
 module.exports = {
