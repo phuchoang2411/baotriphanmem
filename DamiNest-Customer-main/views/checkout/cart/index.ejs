@@ -1,129 +1,131 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
+  <head>
+    <%- include(layouts + '/head'); %>
 
-<head>
-  <%- include(layouts + '/head'); %>
+    <link rel="stylesheet" href="/css/checkout/cart.css" />
+  </head>
 
-  <link rel="stylesheet" href="/css/checkout/cart.css">
-</head>
+  <body id="checkout-cart-page">
+    <%- include(layouts + '/header'); %>
 
-<body id="checkout-cart-page">
-  <%- include(layouts + '/header'); %>
+    <main>
+      <div class="container">
+        <div class="clearfix-32"></div>
 
-  <main>
-    <div class="container">
-      <div class="clearfix-32"></div>
+        <div class="heading">
+          <h1>Giỏ hàng</h1>
+          <button onclick="deleteAllFromCart();">Xoá tất cả</button>
+        </div>
 
-      <div class="heading">
-        <h1>Giỏ hàng</h1>
-        <button onclick="deleteAllFromCart();">Xoá tất cả</button>
+        <div id="cart-items"></div>
+
+        <div class="clearfix-32"></div>
       </div>
 
-      <div id="cart-items"></div>
+      <div class="clearfix-56"></div>
 
-      <div class="clearfix-32"></div>
-    </div>
+      <div class="fixed-bottom">
+        <div class="container">
+          <div class="content">
+            <div class="total">
+              <span class="total-label">Thành tiền :</span>
+              <span class="total-value" id="total-price">0 ₫</span>
+            </div>
 
-    <div class="clearfix-56"></div>
+            <div class="vat-included">
+              <span>Đã bao gồm VAT nếu có</span>
+            </div>
 
-    <div class="fixed-bottom">
-      <div class="container">
-        <div class="content">
-          <div class="total">
-            <span class="total-label">Thành tiền :</span>
-            <span class="total-value" id="total-price">0 ₫</span>
-          </div>
-
-          <div class="vat-included">
-            <span>Đã bao gồm VAT nếu có</span>
-          </div>
-
-          <div class="next-step">
-            <button class="btn-daminest primary" id="btn-next-step">Thanh toán</button>
+            <div class="next-step">
+              <button class="btn-daminest primary" id="btn-next-step">
+                Thanh toán
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <%- include(layouts + '/foot'); %>
+    <%- include(layouts + '/foot'); %>
 
-  <script type="text/javascript">
-    function updateCartQuantity (productId, quantity) {
-      cartLS.quantity(productId, quantity);
+    <script type="text/javascript">
+      function updateCartQuantity(productId, quantity) {
+        cartLS.quantity(productId, quantity);
 
-      $.ajax({
-        url: '/checkout/cart/add',
-        type: 'PUT',
-        data: {
-          productId: productId,
-          quantity: quantity
-        },
-        success: function (data) {
-          console.log('updateCartQuantity -> Success', data);
-        },
-        error: function (error) {
-          console.log('updateCartQuantity -> Error', error);
-          toastr.error("Lỗi cập nhật giỏ hàng");
-        }
-      });
-    }
-
-    function deleteFromCart (productId) {
-      cartLS.remove(productId);
-
-      $.ajax({
-        url: '/checkout/cart/delete',
-        type: 'DELETE',
-        data: {
-          productId: productId
-        },
-        success: function (data) {
-          console.log('deleteFromCart -> Success', data);
-        },
-        error: function (error) {
-          console.log('deleteFromCart -> Error', error);
-          toastr.error("Lỗi xoá giỏ hàng");
-        }
-      });
-    }
-
-    function deleteAllFromCart () {
-      const isConfirmed = window.confirm("Bạn chắc chắc muốn xoá giỏ hàng?");
-
-      if (!isConfirmed) {
-        return;
+        $.ajax({
+          url: '/checkout/cart/add',
+          type: 'PUT',
+          data: {
+            productId: productId,
+            quantity: quantity,
+          },
+          success: function (data) {
+            console.log('updateCartQuantity -> Success', data);
+          },
+          error: function (error) {
+            console.log('updateCartQuantity -> Error', error);
+            toastr.error('Lỗi cập nhật giỏ hàng');
+          },
+        });
       }
 
-      cartLS.destroy();
+      function deleteFromCart(productId) {
+        cartLS.remove(productId);
 
-      $.ajax({
-        url: '/checkout/cart/delete-all',
-        type: 'DELETE',
-        success: function (data) {
-          console.log('deleteAllFromCart -> Success', data);
-        },
-        error: function (error) {
-          console.log('deleteAllFromCart -> Error', error);
-          toastr.error("Lỗi xoá giỏ hàng");
+        $.ajax({
+          url: '/checkout/cart/delete',
+          type: 'DELETE',
+          data: {
+            productId: productId,
+          },
+          success: function (data) {
+            console.log('deleteFromCart -> Success', data);
+          },
+          error: function (error) {
+            console.log('deleteFromCart -> Error', error);
+            toastr.error('Lỗi xoá giỏ hàng');
+          },
+        });
+      }
+
+      function deleteAllFromCart() {
+        const isConfirmed = window.confirm('Bạn chắc chắc muốn xoá giỏ hàng?');
+
+        if (!isConfirmed) {
+          return;
         }
-      });
-    }
 
-    function renderCartItems (items) {
-      const hasData = Array.isArray(items) && items.length > 0;
+        cartLS.destroy();
 
-      if (!hasData) {
-        $('#cart-items').html(`
+        $.ajax({
+          url: '/checkout/cart/delete-all',
+          type: 'DELETE',
+          success: function (data) {
+            console.log('deleteAllFromCart -> Success', data);
+          },
+          error: function (error) {
+            console.log('deleteAllFromCart -> Error', error);
+            toastr.error('Lỗi xoá giỏ hàng');
+          },
+        });
+      }
+
+      function renderCartItems(items) {
+        const hasData = Array.isArray(items) && items.length > 0;
+
+        if (!hasData) {
+          $('#cart-items').html(`
           <div class="alert alert-warning mb-0" role="alert">
             Không có sản phẩm nào trong giỏ hàng của bạn.
           </div>
         `);
-        return;
-      }
+          return;
+        }
 
-      $('#cart-items').html(items.map((item) => {
-        return `
+        $('#cart-items').html(
+          items.map((item) => {
+            return `
           <div class="cart-product-item">
             <div class="featured-image">
               <img src="${getMediaUrl(item.featuredImage)}" />
@@ -138,7 +140,9 @@
                 </span>
               </div>
 
-              <button class="btn-delete" onclick="deleteFromCart('${item.id}')">Xoá sản phẩm</button>
+              <button class="btn-delete" onclick="deleteFromCart('${
+                item.id
+              }')">Xoá sản phẩm</button>
             </div>
 
             <div class="quantity">
@@ -154,55 +158,58 @@
             </div>
           </div>
         `;
-      }));
-    }
+          })
+        );
+      }
 
-    function updateCartTotal () {
-      $('#total-price').html(currencyFormatter(cartLS.total()));
-    }
+      function updateCartTotal() {
+        $('#total-price').html(currencyFormatter(cartLS.total()));
+      }
 
-    $(document).ready(function () {
-      cartLS.onChange(function (items) {
-        renderCartItems(items);
-        updateCartBadge();
-        updateCartTotal();
-      });
+      $(document).ready(function () {
+        cartLS.onChange(function (items) {
+          renderCartItems(items);
+          updateCartBadge();
+          updateCartTotal();
+        });
 
-      $.ajax({
-        url: '/checkout/cart/get',
-        type: 'GET',
-        success: function (data) {
-          if (data.source === 'fromUser') {
-            // Cart data from user
-            console.log('getCart -> Success', 'Load cart data from user');
-            cartLS.destroy();
-            data.cart.forEach((item) => {
-              console.log(item);
-              cartLS.add(item, item.quantity);
-            })
-          } else {
-            // Cart data from localStorage
-            console.log('getCart -> Success', 'Load cart data from localStorage');
-            renderCartItems(cartLS.list());
-            updateCartTotal();
+        $.ajax({
+          url: '/checkout/cart/get',
+          type: 'GET',
+          success: function (data) {
+            if (data.source === 'fromUser') {
+              // Cart data from user
+              console.log('getCart -> Success', 'Load cart data from user');
+              cartLS.destroy();
+              data.cart.forEach((item) => {
+                console.log(item);
+                cartLS.add(item, item.quantity);
+              });
+            } else {
+              // Cart data from localStorage
+              console.log(
+                'getCart -> Success',
+                'Load cart data from localStorage'
+              );
+              renderCartItems(cartLS.list());
+              updateCartTotal();
+            }
+          },
+          error: function (error) {
+            console.log('getCart -> Error', error);
+            toastr.error('Lỗi lấy thông tin giỏ hàng');
+          },
+        });
+
+        $('#btn-next-step').on('click', function () {
+          if (!cartLS.list().length) {
+            toastr.warning('Vui lòng thêm sản phẩm vào giỏ hàng');
+            return;
           }
-        },
-        error: function (error) {
-          console.log('getCart -> Error', error);
-          toastr.error("Lỗi lấy thông tin giỏ hàng");
-        }
+
+          window.location = '/checkout/shipping';
+        });
       });
-
-      $('#btn-next-step').on('click', function () {
-        if (!cartLS.list().length) {
-          toastr.warning("Vui lòng thêm sản phẩm vào giỏ hàng");
-          return;
-        }
-
-        window.location = '/checkout/shipping';
-      });
-    });
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>

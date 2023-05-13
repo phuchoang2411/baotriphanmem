@@ -79,7 +79,21 @@ const sendForgotPasswordEmail = async (email) => {
 const getRegister = (req, res, next) => {
   const registerRes = req.query?.res;
 
-  res.render('auth/register', {
+  // res.render('auth/register', {
+  //   registerRes,
+
+  //   formAction: queryString.stringifyUrl({
+  //     url: '/auth/register',
+  //     query: { nextUrl: req.query?.nextUrl },
+  //   }),
+
+  //   loginUrl: queryString.stringifyUrl({
+  //     url: '/auth/login',
+  //     query: { nextUrl: req.query?.nextUrl },
+  //   }),
+  // });
+
+  res.send({
     registerRes,
 
     formAction: queryString.stringifyUrl({
@@ -113,7 +127,7 @@ const getLogin = (req, res, next) => {
   console.log(req.query);
 
   const loginRes = req.query?.res;
-  res.render('auth/login', {
+  res.send({
     loginRes,
 
     formAction: queryString.stringifyUrl({
@@ -126,6 +140,19 @@ const getLogin = (req, res, next) => {
       query: { nextUrl: req.query?.nextUrl },
     }),
   });
+  // res.render('auth/login', {
+  //   loginRes,
+
+  //   formAction: queryString.stringifyUrl({
+  //     url: '/auth/login',
+  //     query: { nextUrl: req.query?.nextUrl },
+  //   }),
+
+  //   registerUrl: queryString.stringifyUrl({
+  //     url: '/auth/register',
+  //     query: { nextUrl: req.query?.nextUrl },
+  //   }),
+  // });
 };
 
 const postLogin = (req, res, next) => {

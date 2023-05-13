@@ -1,113 +1,148 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
+  <head>
+    <%- include(layouts + '/head'); %>
 
-<head>
-  <%- include(layouts + '/head'); %>
+    <link rel="stylesheet" href="/css/auth/index.css" />
+  </head>
 
-  <link rel="stylesheet" href="/css/auth/index.css">
-</head>
+  <body id="login-page">
+    <%- include(layouts + '/header'); %>
 
-<body id="login-page">
-  <%- include(layouts + '/header'); %>
+    <main>
+      <div class="container">
+        <div class="clearfix-32"></div>
 
-  <main>
-    <div class="container">
-      <div class="clearfix-32"></div>
+        <div class="row">
+          <div class="col-12 col-md-6 offset-md-3">
+            <form
+              action="<%= formAction %>"
+              method="post"
+              id="form-login"
+              class="form-auth"
+            >
+              <h1 class="page-heading">Đăng nhập</h1>
 
-      <div class="row">
-        <div class="col-12 col-md-6 offset-md-3">
-          <form action="<%= formAction %>" method="post" id="form-login" class="form-auth">
-            <h1 class="page-heading">Đăng nhập</h1>
-
-            <% if (loginRes === "FAILED") { %>
+              <% if (loginRes === "FAILED") { %>
               <div class="alert alert-danger" role="alert">
                 Sai tài khoản hoặc mật khẩu!
               </div>
-            <% } %>
+              <% } %>
 
-            <div class="form-group mb-3 form-floating">
-              <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
-              <label for="email" class="form-label">Email</label>
-            </div>
+              <div class="form-group mb-3 form-floating">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  placeholder="Email"
+                  required
+                />
+                <label for="email" class="form-label">Email</label>
+              </div>
 
-            <div class="form-group mb-3 form-floating">
-              <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" required>
-              <label for="password">Mật khẩu</label>
-            </div>
+              <div class="form-group mb-3 form-floating">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  placeholder="Mật khẩu"
+                  required
+                />
+                <label for="password">Mật khẩu</label>
+              </div>
 
-            <input type="hidden" name="cartLS" id="cartLS">
+              <input type="hidden" name="cartLS" id="cartLS" />
 
-            <div class="row mb-3 g-3 align-items-center">
-              <div class="col col-md-6">
-                <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe" checked>
-                  <label class="form-check-label" for="rememberMe">Lưu tài khoản</label>
+              <div class="row mb-3 g-3 align-items-center">
+                <div class="col col-md-6">
+                  <div class="form-check">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="rememberMe"
+                      name="rememberMe"
+                      checked
+                    />
+                    <label class="form-check-label" for="rememberMe"
+                      >Lưu tài khoản</label
+                    >
+                  </div>
+                </div>
+
+                <div class="col col-md-6 text-end">
+                  <a href="/auth/forgot-password">Quên mật khẩu?</a>
                 </div>
               </div>
 
-              <div class="col col-md-6 text-end">
-                <a href="/auth/forgot-password">Quên mật khẩu?</a>
+              <div class="d-grid mb-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-full"
+                  id="btn-submit"
+                  data-loading-text="Đang xử lí ..."
+                >
+                  Đăng nhập
+                </button>
               </div>
-            </div>
 
-            <div class="d-grid mb-3">
-              <button type="submit" class="btn btn-primary btn-full" id="btn-submit" data-loading-text="Đang xử lí ...">Đăng nhập</button>
-            </div>
-
-            <div class="text-center">
-              <p class="mb-0">Bạn chưa có tài khoản? <a href="<%= registerUrl %>">Đăng ký ngay</a></p>
-            </div>
-          </form>
+              <div class="text-center">
+                <p class="mb-0">
+                  Bạn chưa có tài khoản?
+                  <a href="<%= registerUrl %>">Đăng ký ngay</a>
+                </p>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <%- include(layouts + '/foot'); %>
+    <%- include(layouts + '/foot'); %>
 
-  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 
-  <script type="text/javascript">
-    $(document).ready(function () {
-      const cart = cartLS.list().map((item) => ({
-        productId: item.id,
-        quantity: item.quantity
-      }));
+    <script type="text/javascript">
+      $(document).ready(function () {
+        const cart = cartLS.list().map((item) => ({
+          productId: item.id,
+          quantity: item.quantity,
+        }));
 
-      $('#cartLS').val(JSON.stringify(cart));
+        $('#cartLS').val(JSON.stringify(cart));
 
-      $("#form-login").validate({
-        rules: {
-          email: {
-            required: true,
-            email: true,
+        $('#form-login').validate({
+          rules: {
+            email: {
+              required: true,
+              email: true,
+            },
+            password: {
+              required: true,
+              minlength: 6,
+            },
           },
-          password: {
-            required: true,
-            minlength: 6
-          }
-        },
-        messages: {
-          email: {
-            required: "Vui lòng nhập Email",
-            email: "Email không đúng định dạng",
+          messages: {
+            email: {
+              required: 'Vui lòng nhập Email',
+              email: 'Email không đúng định dạng',
+            },
+            password: {
+              required: 'Bạn chưa nhập Mật khẩu',
+              minlength: 'Mật khẩu phải 6 kí tự trở lên',
+            },
           },
-          password: {
-            required: "Bạn chưa nhập Mật khẩu",
-            minlength: "Mật khẩu phải 6 kí tự trở lên",
-          }
-        },
 
-        errorElement : 'div',
-        errorClass: 'is-invalid',
+          errorElement: 'div',
+          errorClass: 'is-invalid',
 
-        submitHandler: function (form) {
-          $('#btn-submit').bootstrapBtn('loading');
-          form.submit();
-        }
+          submitHandler: function (form) {
+            $('#btn-submit').bootstrapBtn('loading');
+            form.submit();
+          },
+        });
       });
-    });
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>

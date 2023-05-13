@@ -57,8 +57,10 @@ const loginStrategy = new LocalStrategy(
   async (req, email, password, done) => {
     try {
       const user = await UserModel.findOne({ email }).exec();
+      console.log(email);
 
       if (!user) {
+        console.log(email);
         return done(null, false, { message: 'Tài khoản không tồn tại' });
       }
 
@@ -69,6 +71,7 @@ const loginStrategy = new LocalStrategy(
       const validate = await user.isValidPassword(password);
 
       if (!validate) {
+        console.log(password);
         return done(null, false, { message: 'Mật khẩu không chính xác' });
       }
 

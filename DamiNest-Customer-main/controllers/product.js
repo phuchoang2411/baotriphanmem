@@ -143,6 +143,23 @@ const search = async (req, res) => {
       sort: req.query?.sort,
     },
   });
+  // res.send({
+  //   categories,
+
+  //   products: result.docs,
+  //   page: result.page,
+  //   totalPages: result.totalPages,
+
+  //   pageUrl: req.originalUrl,
+
+  //   formValues: {
+  //     keyword: req.query?.keyword,
+  //     categoryId: req.query?.categoryId,
+  //     priceMin: req.query?.priceMin,
+  //     priceMax: req.query?.priceMax,
+  //     sort: req.query?.sort,
+  //   },
+  // });
 };
 
 const getView = async (req, res, next) => {
