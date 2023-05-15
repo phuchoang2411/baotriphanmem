@@ -1,6 +1,6 @@
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
 
-dotenv.config()
+dotenv.config();
 
 const config = {
   ENV: process.env.NODE_ENV,
@@ -21,7 +21,7 @@ const config = {
   SUPPORT_EMAIL: process.env.SUPPORT_EMAIL,
   SUPPORT_PHONE_NUMBER: process.env.SUPPORT_PHONE_NUMBER,
 
-  GG_ANALYTICS_ID: process.env.GG_ANALYTICS_ID
-}
+  GG_ANALYTICS_ID: process.env.GG_ANALYTICS_ID,
+};
 
-module.exports = config
+module.exports = config;
