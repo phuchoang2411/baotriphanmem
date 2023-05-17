@@ -50,8 +50,8 @@ const index = async (req, res) => {
   //   page: currentPage,
   //   totalPages,
 
-  //   pageUrl: req.originalUrl
-  // })
+  //   pageUrl: req.originalUrl,
+  // });
 
   res.send({
     categoryId,
@@ -109,7 +109,9 @@ const search = async (req, res) => {
 
   // Sort
   if (req.query?.sort) {
+    console.log(req.query?.sort);
     sort = commonUtil.convertSortQueryStringToMongooseSort(req.query.sort);
+    console.log(sort);
   }
 
   const result = await ProductModel.paginate(query, {
@@ -122,28 +124,11 @@ const search = async (req, res) => {
     },
   });
 
-  console.log('result', result.docs);
+  //console.log('result', result.docs);
 
   const categories = await ProductCategoryModel.find({}).exec();
 
-  res.render('products/search', {
-    categories,
-
-    products: result.docs,
-    page: result.page,
-    totalPages: result.totalPages,
-
-    pageUrl: req.originalUrl,
-
-    formValues: {
-      keyword: req.query?.keyword,
-      categoryId: req.query?.categoryId,
-      priceMin: req.query?.priceMin,
-      priceMax: req.query?.priceMax,
-      sort: req.query?.sort,
-    },
-  });
-  // res.send({
+  // res.render('products/search', {
   //   categories,
 
   //   products: result.docs,
@@ -160,6 +145,24 @@ const search = async (req, res) => {
   //     sort: req.query?.sort,
   //   },
   // });
+
+  res.send({
+    categories,
+
+    products: result.docs,
+    page: result.page,
+    totalPages: result.totalPages,
+
+    pageUrl: req.originalUrl,
+
+    formValues: {
+      keyword: req.query?.keyword,
+      categoryId: req.query?.categoryId,
+      priceMin: req.query?.priceMin,
+      priceMax: req.query?.priceMax,
+      sort: req.query?.sort,
+    },
+  });
 };
 
 const getView = async (req, res, next) => {
@@ -167,12 +170,14 @@ const getView = async (req, res, next) => {
 
   const isValid = mongoose.isValidObjectId(productId);
   if (!isValid) {
-    return next(new Error('Mã sản phẩm không hợp lệ!'));
+    // return next(new Error('Mã sản phẩm không hợp lệ!'));
+    return res.send('Mã sản phẩm không hợp lệ!');
   }
 
   const product = await ProductModel.findById(productId).exec();
   if (!product) {
-    return next(new Error('Không tìm thấy sản phẩm!'));
+    // return next(new Error('Không tìm thấy sản phẩm!'));
+    return res.send('Không tìm thấy sản phẩm!');
   }
 
   const [relatedProducts] = await Promise.all([
@@ -182,7 +187,8 @@ const getView = async (req, res, next) => {
     }).exec(),
   ]);
 
-  res.render('products/view', { product, relatedProducts });
+  // res.render('products/view', { product, relatedProducts });
+  res.send({ product, relatedProducts });
 };
 
 const getReviews = async (req, res) => {
