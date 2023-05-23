@@ -1,4 +1,4 @@
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -24,4 +24,4 @@ const config = {
   GG_ANALYTICS_ID: process.env.GG_ANALYTICS_ID,
 };
 
-module.exports = config;
+export default config;

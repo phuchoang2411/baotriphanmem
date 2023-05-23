@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon ./bin/www",
-    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www.ts",
+    "start": "node ./bin/www.ts",
     "sass:watch": "sass --watch public/scss:public/css --style compressed",
     "heroku:logs": "heroku logs --tail --app daminest",
     "pm2:start": "pm2 start ./ecosystem.config.js --env production ; pm2 status",
@@ -12,6 +12,16 @@
     "pm2:stop": "pm2 stop ./ecosystem.config.js --env production ; pm2 status"
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/ejs": "^3.1.2",
+    "@types/express-boom": "^3.0.1",
+    "@types/express-session": "^1.17.7",
+    "@types/http-errors": "^2.0.1",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/lodash": "^4.14.194",
+    "@types/morgan": "^1.9.4",
+    "@types/passport": "^1.0.12",
     "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "bootstrap": "^5.1.3",
@@ -39,9 +49,10 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "nodemon": "^2.0.15",
+    "nodemon": "^2.0.22",
     "sass": "^1.43.4",
-    "standard": "^16.0.4"
+    "standard": "^16.0.4",
+    "ts-node": "^10.9.1"
   },
   "standard": {
     "parser": "babel-eslint",

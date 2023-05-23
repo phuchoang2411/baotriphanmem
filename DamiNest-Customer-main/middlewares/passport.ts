@@ -1,7 +1,15 @@
 const LocalStrategy = require('passport-local').Strategy;
 
-const { UserModel } = require('../models');
-const { authController } = require('../controllers');
+import { UserModel } from '../models';
+import { authController } from '../controllers';
+import { NextFunction } from 'express';
+
+interface Request {
+  isAuthenticated(): boolean | undefined;
+  originalUrl: string;
+}
+
+interface Response {}
 
 const registerStrategy = new LocalStrategy(
   {
@@ -57,10 +65,8 @@ const loginStrategy = new LocalStrategy(
   async (req, email, password, done) => {
     try {
       const user = await UserModel.findOne({ email }).exec();
-      console.log(email);
 
       if (!user) {
-        console.log(email);
         return done(null, false, { message: 'Tài khoản không tồn tại' });
       }
 
@@ -71,7 +77,6 @@ const loginStrategy = new LocalStrategy(
       const validate = await user.isValidPassword(password);
 
       if (!validate) {
-        console.log(password);
         return done(null, false, { message: 'Mật khẩu không chính xác' });
       }
 
@@ -116,13 +121,11 @@ const applyPassportMiddleware = (passport) => {
   return passport;
 };
 
-const injectLocals = () => (req, res, next) => {
-  res.locals.currentUser = req.user;
-  res.locals.isAuthenticated = req.isAuthenticated();
-  next();
-};
+const injectLocals =
+  () => (req: Request, res: Response, next: NextFunction) => {
+    res.locals.currentUser = req.user;
+    res.locals.isAuthenticated = req.isAuthenticated();
+    next();
+  };
 
-module.exports = {
-  applyPassportMiddleware,
-  injectLocals,
-};
+export { applyPassportMiddleware, injectLocals };

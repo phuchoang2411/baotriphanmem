@@ -1,33 +1,40 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const passport = require('passport');
-const logger = require('morgan');
-const session = require('express-session');
+import createError from 'http-errors';
+import express, { Request, Response, NextFunction } from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import passport from 'passport';
+import logger from 'morgan';
+import session from 'express-session';
 const MongoStore = require('connect-mongo')(session);
-const mongoose = require('mongoose');
-const queryString = require('query-string');
-const config = require('./config');
-const appLocals = require('./app.locals');
-const boom = require('express-boom');
+import mongoose from 'mongoose';
+import queryString from 'query-string';
+import config from './config';
+import appLocals from './app.locals';
+import boom from 'express-boom';
 
-const { passportMiddleware, authMiddleware } = require('./middlewares');
-const { databaseUtil, commonUtil } = require('./utils');
+import { passportMiddleware, authMiddleware } from './middlewares';
+import {
+  databaseUtil,
+  //commonUtil
+} from './utils';
 
-const {
-  aboutRouter,
-  authRouter,
-  handbookRouter,
+import {
+  // aboutRouter,
+  // authRouter,
+  // handbookRouter,
   homeRouter,
-  productsRouter,
-  profileRouter,
-  checkoutRouter,
-  productReviewRouter,
-  ordersRouter,
-  mailRouter,
-  // dataRouter
-} = require('./routes');
+  // productsRouter,
+  // profileRouter,
+  // checkoutRouter,
+  // productReviewRouter,
+  // ordersRouter,
+  // mailRouter,
+} from './routes';
+
+interface Error {
+  status?: number;
+  message?: string;
+}
 
 const app = express();
 
@@ -40,6 +47,7 @@ databaseUtil.connectDatabase();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// add some package
 app.use(logger('dev'));
 app.use(boom());
 app.use(express.json());
@@ -57,7 +65,7 @@ const sessionStore = new MongoStore({
 app.use(
   session({
     store: sessionStore,
-    secret: config.SECRET_KEY,
+    secret: config.SECRET_KEY!,
     saveUninitialized: true,
     cookie: {
       // Creating 24 hours * 7 days from milliseconds
@@ -68,10 +76,10 @@ app.use(
 );
 
 // Passport
-passportMiddleware.applyPassportMiddleware(passport);
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(passportMiddleware.injectLocals());
+// passportMiddleware.applyPassportMiddleware(passport);
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(passportMiddleware.injectLocals());
 
 app.use((req, res, next) => {
   res.locals.currencyFormatter = new Intl.NumberFormat('vi-VN', {
@@ -81,24 +89,24 @@ app.use((req, res, next) => {
   res.locals.queryString = queryString;
   res.locals.searchKeyword = req.query?.keyword || '';
   res.locals.currentUrl = req.originalUrl;
-  res.locals.getMediaUrl = commonUtil.getMediaUrl;
+  //res.locals.getMediaUrl = commonUtil.getMediaUrl;
   res.locals.GG_ANALYTICS_ID = config.GG_ANALYTICS_ID;
   res.locals.MEDIA_URL = config.MEDIA_URL;
   next();
 });
 
 // routes
-app.use('/auth', authRouter);
-app.use('/profile', authMiddleware.requiredLogin, profileRouter);
-app.use('/about', aboutRouter);
-app.use('/products', productsRouter);
-app.use('/handbook', handbookRouter);
-app.use('/checkout', checkoutRouter);
-app.use('/product-review', productReviewRouter);
-app.use('/orders', ordersRouter);
-app.use('/mail-service', mailRouter);
+// app.use('/auth', authRouter);
+// app.use('/profile', authMiddleware.requiredLogin, profileRouter);
+// app.use('/about', aboutRouter);
+// app.use('/products', productsRouter);
+// app.use('/handbook', handbookRouter);
+// app.use('/checkout', checkoutRouter);
+// app.use('/product-review', productReviewRouter);
+// app.use('/orders', ordersRouter);
+// app.use('/mail-service', mailRouter);
 // app.use('/data', dataRouter)
-app.use('/', homeRouter);
+//app.use('/', homeRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -106,7 +114,7 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -114,5 +122,4 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error/index');
 });
-
-module.exports = app;
+export default app;

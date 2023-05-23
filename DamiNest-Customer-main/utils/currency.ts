@@ -1,8 +1,8 @@
 const currencyFormatter = new Intl.NumberFormat('vi-VN', {
   style: 'currency',
-  currency: 'VND'
-})
+  currency: 'VND',
+});
 
-module.exports = {
-  format: currencyFormatter.format
-}
+export default {
+  format: currencyFormatter.format,
+};

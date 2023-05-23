@@ -1,29 +1,26 @@
-const jwt = require('jsonwebtoken')
-const config = require('../config')
+import jwt from 'jsonwebtoken';
+import config from '../config';
 
 const getVerifyEmailToken = ({ userId, emailId }) => {
   return jwt.sign(
     {
       userId,
-      emailId
+      emailId,
     },
-    config.SECRET_KEY,
+    config.SECRET_KEY!,
     { expiresIn: '24h' }
-  )
-}
+  );
+};
 
 const getResetPasswordToken = ({ userId, resetPasswordId }) => {
   return jwt.sign(
     {
       userId,
-      resetPasswordId
+      resetPasswordId,
     },
-    config.SECRET_KEY,
+    config.SECRET_KEY!,
     { expiresIn: '24h' }
-  )
-}
+  );
+};
 
-module.exports = {
-  getVerifyEmailToken,
-  getResetPasswordToken
-}
+export { getVerifyEmailToken, getResetPasswordToken };
