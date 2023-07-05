@@ -1,0 +1,12 @@
+POST http://localhost:3001/auth/login
+Content-Type: application/json
+
+{
+    "email":"phuchoang2411@gmail.com",
+    "password":"1234567"
+}
+
+###
+GET http://localhost:3001/profile/me
+###
+GET http://localhost:3001/profile/

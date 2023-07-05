@@ -12,7 +12,6 @@ const registerStrategy = new LocalStrategy(
   async (req, email, password, done) => {
     try {
       let cart = [];
-
       //
       // Neu nguoi dung chua register & muon thanh toan cartLS
       // -> Khoi tao cart cua tai khoan dang register thanh cartLS
@@ -28,20 +27,20 @@ const registerStrategy = new LocalStrategy(
         cart,
       });
 
-      // Send verify email
-      authController
-        .sendVerifyEmail(user._id)
-        .then((data) =>
-          console.log('registerStrategy -> sendVerifyEmail -> Success', data)
-        )
-        .catch((error) =>
-          console.log(
-            'registerStrategy -> sendVerifyEmail -> Error',
-            error.message
-          )
-        );
+      // // Send verify email
+      // authController
+      //   .sendVerifyEmail(user._id)
+      //   .then((data) =>
+      //     console.log('registerStrategy -> sendVerifyEmail -> Success', data)
+      //   )
+      //   .catch((error) =>
+      //     console.log(
+      //       'registerStrategy -> sendVerifyEmail -> Error',
+      //       error.message
+      //     )
+      //   );
 
-      return done(null, user);
+      return done(null, true, user);
     } catch (error) {
       done(null, false, { message: error.message });
     }
@@ -88,7 +87,7 @@ const loginStrategy = new LocalStrategy(
         }).exec();
       }
 
-      return done(null, user);
+      return done(null, true,user);
     } catch (error) {
       return done(null, false, { message: error.message });
     }
