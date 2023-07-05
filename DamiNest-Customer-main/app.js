@@ -11,7 +11,7 @@ const queryString = require('query-string');
 const config = require('./config');
 const appLocals = require('./app.locals');
 const boom = require('express-boom');
-const cors = require('cors')
+const cors = require('cors');
 const { passportMiddleware, authMiddleware } = require('./middlewares');
 const { databaseUtil, commonUtil } = require('./utils');
 
@@ -28,8 +28,6 @@ const {
   mailRouter,
   // dataRouter
 } = require('./routes');
-
-const cors = require('cors');
 
 const app = express();
 

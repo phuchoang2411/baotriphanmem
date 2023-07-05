@@ -87,7 +87,7 @@ const loginStrategy = new LocalStrategy(
         }).exec();
       }
 
-      return done(null, true,user);
+      return done(null, true, user);
     } catch (error) {
       return done(null, false, { message: error.message });
     }
@@ -97,7 +97,6 @@ const loginStrategy = new LocalStrategy(
 const serializeUser = (user, done) => done(null, user._id);
 
 const deserializeUser = async (id, done) => {
-  console.log('Yes');
   try {
     const user = await UserModel.findById(id).exec();
     return done(null, user);
