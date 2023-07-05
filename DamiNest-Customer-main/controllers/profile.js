@@ -4,9 +4,14 @@ const config = require('../config');
 
 const { UserModel, OrderModel } = require('../models');
 
-const index = (req, res) => {
+const index = async (req, res) => {
   // res.render('profile/me')
-  res.send('profile/me');
+  //res.send('profile/me');
+  const profile = await UserModel.findById(req.user._id)
+    .select('-password -emailId -resetPasswordId')
+    .exec();
+
+  res.json(profile);
 };
 
 const updateCart = async (req, res) => {
