@@ -11,7 +11,7 @@ const queryString = require('query-string');
 const config = require('./config');
 const appLocals = require('./app.locals');
 const boom = require('express-boom');
-
+const cors = require('cors')
 const { passportMiddleware, authMiddleware } = require('./middlewares');
 const { databaseUtil, commonUtil } = require('./utils');
 
@@ -37,7 +37,7 @@ app.locals = appLocals;
 
 // connect to MongoDB
 databaseUtil.connectDatabase();
-
+app.use(cors({ origin: true, credentials: true }));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
