@@ -97,6 +97,7 @@ const loginStrategy = new LocalStrategy(
 const serializeUser = (user, done) => done(null, user._id);
 
 const deserializeUser = async (id, done) => {
+  console.log('Yes');
   try {
     const user = await UserModel.findById(id).exec();
     return done(null, user);

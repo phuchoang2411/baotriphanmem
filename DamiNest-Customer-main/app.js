@@ -29,6 +29,8 @@ const {
   // dataRouter
 } = require('./routes');
 
+const cors = require('cors');
+
 const app = express();
 
 app.locals = appLocals;
@@ -46,6 +48,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors({ origin: true, credentials: true }));
 
 // Session
 
