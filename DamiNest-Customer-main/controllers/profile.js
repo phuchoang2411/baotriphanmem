@@ -5,11 +5,14 @@ const config = require('../config');
 const { UserModel, OrderModel } = require('../models');
 
 const index = async (req, res) => {
+  const { user } = req;
+  const userId = user._id;
+  console.log(user._id);
   // res.render('profile/me')
   //res.send('profile/me');
-  const profile = await UserModel.findById(req.user._id).exec();
+  const profile = await UserModel.findById(userId).exec();
 
-  res.json(profile);
+  res.send(profile);
 };
 
 const updateCart = async (req, res) => {

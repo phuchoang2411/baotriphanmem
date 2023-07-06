@@ -110,15 +110,17 @@ const getRegister = (req, res, next) => {
 };
 
 const postRegister = (req, res, next) => {
-  passport.authenticate('register', function (err, isValid, user) {
-    if (err) {
-      return next(err);
-    }
-    if (!isValid) {
-      return res.status(401).json({ message: user });
-    }
-    // Authentication succeeded, so return user data
-    return res.json(user);
+  const failureRedirect = queryString.stringifyUrl({
+    url: '/auth/register',
+    query: {
+      nextUrl: req.query?.nextUrl,
+      res: 'FAILED',
+    },
+  });
+
+  passport.authenticate('register', {
+    successRedirect: req.query?.nextUrl || '/profile',
+    failureRedirect,
   })(req, res, next);
 };
 
@@ -155,15 +157,18 @@ const getLogin = (req, res, next) => {
 };
 
 const postLogin = (req, res, next) => {
-  passport.authenticate('login', function (err, isValid, user) {
-    if (err) {
-      return next(err);
-    }
-    if (!isValid) {
-      return res.status(401).json({ message: user });
-    }
-    // Authentication succeeded, so return user data
-    return res.json(user);
+  console.log(req.body.email);
+  const failureRedirect = queryString.stringifyUrl({
+    url: '/auth/login',
+    query: {
+      nextUrl: req.query?.nextUrl,
+      res: 'FAILED',
+    },
+  });
+
+  passport.authenticate('login', {
+    successRedirect: req.query?.nextUrl || '/profile',
+    failureRedirect: failureRedirect,
   })(req, res, next);
 };
 

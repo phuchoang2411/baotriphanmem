@@ -12,6 +12,7 @@ const registerStrategy = new LocalStrategy(
   async (req, email, password, done) => {
     try {
       let cart = [];
+
       //
       // Neu nguoi dung chua register & muon thanh toan cartLS
       // -> Khoi tao cart cua tai khoan dang register thanh cartLS
@@ -27,20 +28,20 @@ const registerStrategy = new LocalStrategy(
         cart,
       });
 
-      // // Send verify email
-      // authController
-      //   .sendVerifyEmail(user._id)
-      //   .then((data) =>
-      //     console.log('registerStrategy -> sendVerifyEmail -> Success', data)
-      //   )
-      //   .catch((error) =>
-      //     console.log(
-      //       'registerStrategy -> sendVerifyEmail -> Error',
-      //       error.message
-      //     )
-      //   );
+      // Send verify email
+      authController
+        .sendVerifyEmail(user._id)
+        .then((data) =>
+          console.log('registerStrategy -> sendVerifyEmail -> Success', data)
+        )
+        .catch((error) =>
+          console.log(
+            'registerStrategy -> sendVerifyEmail -> Error',
+            error.message
+          )
+        );
 
-      return done(null, true, user);
+      return done(null, user);
     } catch (error) {
       done(null, false, { message: error.message });
     }
@@ -56,10 +57,8 @@ const loginStrategy = new LocalStrategy(
   async (req, email, password, done) => {
     try {
       const user = await UserModel.findOne({ email }).exec();
-      console.log(email);
 
       if (!user) {
-        console.log(email);
         return done(null, false, { message: 'Tài khoản không tồn tại' });
       }
 
@@ -70,7 +69,6 @@ const loginStrategy = new LocalStrategy(
       const validate = await user.isValidPassword(password);
 
       if (!validate) {
-        console.log(password);
         return done(null, false, { message: 'Mật khẩu không chính xác' });
       }
 
@@ -87,7 +85,7 @@ const loginStrategy = new LocalStrategy(
         }).exec();
       }
 
-      return done(null, true, user);
+      return done(null, user);
     } catch (error) {
       return done(null, false, { message: error.message });
     }

@@ -91,6 +91,7 @@ app.use((req, res, next) => {
 // routes
 app.use('/auth', authRouter);
 app.use('/profile', authMiddleware.requiredLogin, profileRouter);
+//app.use('/profile', profileRouter);
 app.use('/about', aboutRouter);
 app.use('/products', productsRouter);
 app.use('/handbook', handbookRouter);
