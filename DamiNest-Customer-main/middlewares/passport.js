@@ -27,19 +27,6 @@ const registerStrategy = new LocalStrategy(
         cart,
       });
 
-      // // Send verify email
-      // authController
-      //   .sendVerifyEmail(user._id)
-      //   .then((data) =>
-      //     console.log('registerStrategy -> sendVerifyEmail -> Success', data)
-      //   )
-      //   .catch((error) =>
-      //     console.log(
-      //       'registerStrategy -> sendVerifyEmail -> Error',
-      //       error.message
-      //     )
-      //   );
-
       return done(null, true, user);
     } catch (error) {
       done(null, false, { message: error.message });
@@ -94,7 +81,10 @@ const loginStrategy = new LocalStrategy(
   }
 );
 
-const serializeUser = (user, done) => done(null, user._id);
+const serializeUser = (user, done) => {
+  console.log("serializeUser")
+  done(null, user._id)
+};
 
 const deserializeUser = async (id, done) => {
   try {

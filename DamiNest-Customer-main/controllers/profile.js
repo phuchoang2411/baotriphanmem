@@ -5,8 +5,8 @@ const config = require('../config');
 const { UserModel, OrderModel } = require('../models');
 
 const index = (req, res) => {
-  // res.render('profile/me')
-  res.send('profile/me');
+
+  res.send(<req className="user"></req>);
 };
 
 const updateCart = async (req, res) => {

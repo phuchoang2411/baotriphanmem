@@ -12,7 +12,7 @@ const requiredLogin = (req, res, next) => {
 
 const notRequiredLogin = (req, res, next) => {
     if (req.isAuthenticated()) {
-        return res.object({"status": "success", "message": "You are already logged in"})
+        return res.send({"status": "success", "message": "You are already logged in"})
     }
     next()
 }

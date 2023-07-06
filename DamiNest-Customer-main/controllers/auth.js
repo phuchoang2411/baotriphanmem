@@ -163,7 +163,13 @@ const postLogin = (req, res, next) => {
             return res.status(401).json({message: user});
         }
         // Authentication succeeded, so return user data
-        return res.json(user);
+        req.logIn(user, function(err) {
+            if (err) {
+                console.log("????")
+                return next(err);
+            }
+            return res.json(user);
+        });
     })(req, res, next);
 };
 
