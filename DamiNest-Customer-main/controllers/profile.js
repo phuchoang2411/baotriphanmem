@@ -6,7 +6,7 @@ const { UserModel, OrderModel } = require('../models');
 
 const index = (req, res) => {
 
-  res.send(<req className="user"></req>);
+  res.send(req.user);
 };
 
 const updateCart = async (req, res) => {
