@@ -27,6 +27,18 @@ const registerStrategy = new LocalStrategy(
         cart,
       });
 
+      // Send verify email
+      authController.sendVerificationEmail(user._id,email,req.headers.host)
+          .then((data) =>
+              console.log('registerStrategy -> sendVerifyEmail -> Success', data)
+          )
+          .catch((error) =>
+              console.log(
+                  'registerStrategy -> sendVerifyEmail -> Error',
+                  error.message
+              )
+          );
+
       return done(null, true, user);
     } catch (error) {
       done(null, false, { message: error.message });
@@ -43,7 +55,7 @@ const loginStrategy = new LocalStrategy(
   async (req, email, password, done) => {
     try {
       const user = await UserModel.findOne({ email }).exec();
-      console.log(email);
+
 
       if (!user) {
         console.log(email);
@@ -59,6 +71,10 @@ const loginStrategy = new LocalStrategy(
       if (!validate) {
         console.log(password);
         return done(null, false, { message: 'Mật khẩu không chính xác' });
+      }
+      if(user.isVerified===false) {
+        console.log(password);
+        return done(null, false, { message: 'Tài khoảng chưa xác thực' });
       }
 
       //

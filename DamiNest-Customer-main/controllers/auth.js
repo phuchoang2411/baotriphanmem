@@ -4,7 +4,7 @@ const queryString = require('query-string');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const axios = require('axios').default;
-
+const nodemailer =require('nodemailer')
 const {UserModel} = require('../models');
 const {commonUtil, authUtil} = require('../utils');
 const config = require('../config');
@@ -190,30 +190,9 @@ const postSendVerifyEmail = async (req, res) => {
 
 const getVerifyEmail = async (req, res) => {
     try {
-        const {token} = req.query;
-
-        if (!token) {
-            res.render('auth/verify-email', {
-                success: false,
-                errorMessage: 'Vui lòng nhập Token',
-            });
-            return;
-        }
-
-        const decoded = jwt.verify(token, config.SECRET_KEY);
-
-        const userId = decoded?.userId;
-        const emailId = decoded?.emailId;
-
-        if (!userId || !emailId) {
-            res.render('auth/verify-email', {
-                success: false,
-                errorMessage: 'Mã xác nhận không hợp lệ',
-            });
-            return;
-        }
-
-        const user = await UserModel.findOne({_id: userId, emailId}).exec();
+        userId = req.param("id");
+        console.log(userId)
+        const user = await UserModel.findOne({_id: userId}).exec();
 
         if (!user) {
             res.render('auth/verify-email', {
@@ -232,7 +211,7 @@ const getVerifyEmail = async (req, res) => {
         }
 
         await UserModel.findByIdAndUpdate(userId, {
-            $set: {isVerified: true, emailId: ''},
+            $set: {isVerified: true},
         })
             .select('-password -emailId -resetPasswordId')
             .exec();
@@ -311,6 +290,42 @@ const checkEmail = async (req, res) => {
     const isExists = (await UserModel.find({email}).count().exec()) > 0;
     res.json(!isExists);
 };
+const sendVerificationEmail = async (_id,email,curHost) =>{
+    let transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth:{
+            user: config.GMAIL,
+            pass: config.GMAIL_PASSWORD
+        }
+    })
+    const currentUrl = `http://${curHost}/`
+    const uniqueString = nanoid() + _id;
+    const mailOptions = {
+        from: config.GMAIL,
+        to: email,
+        subject: "Verify your email",
+        html: `<p>Verify your email address to complete the sign in process then you can log in your account.</p><p>This link expires in 6 hours.</p><p>Press <a href = ${currentUrl+ "auth/verify-email/" +_id}> here</a> to proceed.`
+        //
+    }
+    const salt = 10;
+    bcrypt
+        .hash(uniqueString,salt)
+        .then(() =>{
+            transporter
+                .sendMail(mailOptions)
+                .then(()=>{
+                    console.log("sended")
+                })
+        })
+}
+
+
+const deleteUser = async (req, res) => {
+    email= req.param("email")
+    await UserModel.deleteMany({"email":email}).exec();
+    return res.json(email);
+}
+
 
 module.exports = {
     sendVerifyEmail,
@@ -328,9 +343,8 @@ module.exports = {
 
     getForgotPassword,
     postForgotPassword,
-
+    sendVerificationEmail,
     getResetPassword,
     postResetPassword,
-
     checkEmail,
 };

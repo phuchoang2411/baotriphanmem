@@ -12,7 +12,7 @@ router.post('/login', authMiddleware.notRequiredLogin, authController.postLogin)
 router.get('/logout', authMiddleware.requiredLogin, authController.getLogout)
 
 router.post('/send-verify-email', authMiddleware.requiredLoginWithBoom, authController.postSendVerifyEmail)
-router.get('/verify-email', authController.getVerifyEmail)
+router.get('/verify-email/:id', authController.getVerifyEmail)
 
 router.get('/forgot-password', authController.getForgotPassword)
 router.post('/forgot-password', authController.postForgotPassword)
