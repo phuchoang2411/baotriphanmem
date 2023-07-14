@@ -19,7 +19,7 @@ const addProductToCart = async (req, res) => {
 
     if (index !== -1) {
       // Update quantity
-      cart[index].quantity += parseInt(quantity);
+      cart[index].quantity = parseInt(quantity);
 
       if (cart[index].quantity < 1) {
         // Delete product if quantify < 1
