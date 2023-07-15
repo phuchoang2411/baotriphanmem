@@ -76,10 +76,10 @@ app.use(
 );
 
 // Passport
-// passportMiddleware.applyPassportMiddleware(passport);
-// app.use(passport.initialize());
-// app.use(passport.session());
-// app.use(passportMiddleware.injectLocals());
+passportMiddleware.applyPassportMiddleware(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(passportMiddleware.injectLocals());
 
 app.use((req, res, next) => {
   res.locals.currencyFormatter = new Intl.NumberFormat('vi-VN', {
@@ -106,7 +106,7 @@ app.use((req, res, next) => {
 // app.use('/orders', ordersRouter);
 // app.use('/mail-service', mailRouter);
 // app.use('/data', dataRouter)
-//app.use('/', homeRouter);
+app.use('/', homeRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
