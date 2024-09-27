@@ -5,8 +5,8 @@ const passport = require('passport');
 const { authMiddleware } = require('../middlewares');
 
 router.get('/login', authMiddleware.isNotAuthenticated, (req, res) => {
-  // res.render('auth/login')
-  res.send('auth/login');
+  res.render('auth/login');
+  //res.send('auth/login');
 });
 
 router.post(

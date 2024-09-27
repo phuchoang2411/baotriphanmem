@@ -2,13 +2,13 @@ const bcrypt = require('bcrypt');
 const { UserModel } = require('../models/');
 
 const getProfile = (req, res) => {
-  // res.render('profile/me')
-  res.send('profile/me');
+  res.render('profile/me');
+  //res.send('profile/me');
 };
 
 const updateProfileView = (req, res) => {
-  // res.render('profile/update');
-  res.send('profile/me');
+  res.render('profile/update');
+  //res.send('profile/me');
 };
 
 const updateProfile = async (req, res) => {
@@ -27,8 +27,8 @@ const updateProfile = async (req, res) => {
 
 const updatePasswordView = async (req, res) => {
   const result = req.query?.res;
-  // res.render('profile/update-password', { result });
-  res.send({ result });
+  res.render('profile/update-password', { result });
+  //res.send({ result });
 };
 
 const updatePassword = async (req, res) => {

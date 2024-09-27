@@ -21,16 +21,16 @@ const getAllProduct = async (req, res) => {
       .populate('categoryId')
       .populate('ownerId')
       .exec();
-    // res.render('product/list', {
-    //   products,
-    //   categories,
-    //   owners
-    // })
-    res.send({
+    res.render('product/list', {
       products,
       categories,
       owners,
     });
+    // res.send({
+    //   products,
+    //   categories,
+    //   owners,
+    // });
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -91,16 +91,16 @@ const updateProductView = async (req, res, next) => {
       .populate('ownerId')
       .populate('categoryId')
       .exec();
-    // res.render('product/updateProduct', {
-    //   product,
-    //   categories,
-    //   owners,
-    // });
-    res.send({
+    res.render('product/updateProduct', {
       product,
       categories,
       owners,
     });
+    // res.send({
+    //   product,
+    //   categories,
+    //   owners,
+    // });
   } catch (error) {
     res.status(400).send(error.message);
   }

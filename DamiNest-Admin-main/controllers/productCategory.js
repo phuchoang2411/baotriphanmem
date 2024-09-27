@@ -10,8 +10,8 @@ const initCategory = async (req, res) => {
 const getAllCategory = async (req, res) => {
   try {
     const categories = await ProductCategoryModel.find();
-    // res.render('product/category', { categories })
-    res.send({ categories });
+    res.render('product/category', { categories });
+    //res.send({ categories });
   } catch (error) {
     console.log(error.message);
   }

@@ -7,8 +7,8 @@ const config = require('../config');
 const getAllOrder = async (req, res) => {
   try {
     const orders = await OrderModel.find();
-    // res.render('order/list', { orders })
-    res.send({ orders });
+    res.render('order/list', { orders });
+    //res.send({ orders });
   } catch (error) {
     console.log(error.message);
   }
@@ -91,12 +91,12 @@ const getUpdateOrderStatus = async (req, res) => {
     return;
   }
 
-  // res.render('order/updateStatus', {
-  //   order,
-  // });
-  res.send({
+  res.render('order/updateStatus', {
     order,
   });
+  // res.send({
+  //   order,
+  // });
 };
 
 module.exports = {

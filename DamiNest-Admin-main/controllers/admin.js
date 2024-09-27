@@ -1,8 +1,8 @@
 const { UserModel } = require('../models');
 
 const getRegister = (req, res) => {
-  // res.render('admin/register');
-  res.send('admin/register');
+  res.render('admin/register');
+  //res.send('admin/register');
 };
 
 const getAdminList = async (req, res) => {
@@ -42,12 +42,12 @@ const updateAdmin = async (req, res) => {
 const updateAdminView = async (req, res) => {
   try {
     const admin = await UserModel.findById(req.params.id).exec();
-    // res.render('admin/update', {
-    //   admin: admin,
-    // });
-    res.send({
+    res.render('admin/update', {
       admin: admin,
     });
+    // res.send({
+    //   admin: admin,
+    // });
   } catch (error) {
     res.status(404).send(error.message);
   }

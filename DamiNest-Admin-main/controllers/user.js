@@ -28,9 +28,9 @@ const initUsers = async (req, res) => {
 const getAllUsers = async (req, res) => {
   try {
     const users = await UserModel.find({ role: 'CUSTOMER' });
-    // console.log('users', users)
-    // res.render('user/list', { users })
-    res.send({ users });
+
+    res.render('user/list', { users });
+    // res.send({ users });
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -40,8 +40,8 @@ const getProfile = async (req, res) => {
   try {
     const id = req.params.id;
     const user = await UserModel.findById(id);
-    // res.render('user/profile', { user });
-    res.send({ user });
+    res.render('user/profile', { user });
+    //res.send({ user });
   } catch (error) {
     res.status(400).send(error.message);
   }

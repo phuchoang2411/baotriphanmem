@@ -8,8 +8,8 @@ const getAllReview = async (req, res) => {
     const reviews = await ProductReviewModel.find()
       .populate('productId')
       .exec();
-    // res.render('review/list', { reviews })
-    res.send({ reviews });
+    res.render('review/list', { reviews });
+    //res.send({ reviews });
   } catch (error) {
     console.log(error.message);
   }
