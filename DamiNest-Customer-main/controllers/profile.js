@@ -8,11 +8,11 @@ const index = async (req, res) => {
   const { user } = req;
   const userId = user._id;
   console.log(user._id);
-  // res.render('profile/me')
+ 
   //res.send('profile/me');
   const profile = await UserModel.findById(userId).exec();
-
-  res.send(profile);
+   res.render('profile/me')
+  //res.send(profile);
 };
 
 const updateCart = async (req, res) => {
@@ -62,8 +62,8 @@ const patchMe = async (req, res) => {
 };
 
 const getChangePassword = (req, res) => {
-  // res.render('profile/change-password');
-  res.send('profile/change-password');
+  res.render('profile/change-password');
+  //res.send('profile/change-password');
 };
 
 const patchChangePassword = async (req, res) => {
@@ -108,21 +108,21 @@ const getPurchases = async (req, res) => {
 
   res.locals.dayjs = dayjs;
 
-  // res.render('profile/purchases', {
-  //   purchases: result.docs,
-  //   page: result.page,
-  //   totalPages: result.totalPages,
-
-  //   pageUrl: req.originalUrl,
-  // });
-
-  res.send({
+  res.render('profile/purchases', {
     purchases: result.docs,
     page: result.page,
     totalPages: result.totalPages,
 
     pageUrl: req.originalUrl,
   });
+
+  // res.send({
+  //   purchases: result.docs,
+  //   page: result.page,
+  //   totalPages: result.totalPages,
+
+  //   pageUrl: req.originalUrl,
+  // });
 };
 
 module.exports = {

@@ -42,18 +42,7 @@ const index = async (req, res) => {
 
   const { docs, page: currentPage, totalPages } = productsRes;
 
-  // res.render('products/index', {
-  //   categoryId,
-  //   categories: categoriesRes,
-
-  //   products: docs,
-  //   page: currentPage,
-  //   totalPages,
-
-  //   pageUrl: req.originalUrl,
-  // });
-
-  res.send({
+  res.render('products/index', {
     categoryId,
     categories: categoriesRes,
 
@@ -63,6 +52,17 @@ const index = async (req, res) => {
 
     pageUrl: req.originalUrl,
   });
+
+  // res.send({
+  //   categoryId,
+  //   categories: categoriesRes,
+
+  //   products: docs,
+  //   page: currentPage,
+  //   totalPages,
+
+  //   pageUrl: req.originalUrl,
+  // });
 };
 
 const search = async (req, res) => {
@@ -128,25 +128,7 @@ const search = async (req, res) => {
 
   const categories = await ProductCategoryModel.find({}).exec();
 
-  // res.render('products/search', {
-  //   categories,
-
-  //   products: result.docs,
-  //   page: result.page,
-  //   totalPages: result.totalPages,
-
-  //   pageUrl: req.originalUrl,
-
-  //   formValues: {
-  //     keyword: req.query?.keyword,
-  //     categoryId: req.query?.categoryId,
-  //     priceMin: req.query?.priceMin,
-  //     priceMax: req.query?.priceMax,
-  //     sort: req.query?.sort,
-  //   },
-  // });
-
-  res.send({
+  res.render('products/search', {
     categories,
 
     products: result.docs,
@@ -163,6 +145,24 @@ const search = async (req, res) => {
       sort: req.query?.sort,
     },
   });
+
+  // res.send({
+  //   categories,
+
+  //   products: result.docs,
+  //   page: result.page,
+  //   totalPages: result.totalPages,
+
+  //   pageUrl: req.originalUrl,
+
+  //   formValues: {
+  //     keyword: req.query?.keyword,
+  //     categoryId: req.query?.categoryId,
+  //     priceMin: req.query?.priceMin,
+  //     priceMax: req.query?.priceMax,
+  //     sort: req.query?.sort,
+  //   },
+  // });
 };
 
 const getView = async (req, res, next) => {
@@ -187,8 +187,8 @@ const getView = async (req, res, next) => {
     }).exec(),
   ]);
 
-  // res.render('products/view', { product, relatedProducts });
-  res.send({ product, relatedProducts });
+  res.render('products/view', { product, relatedProducts });
+  //res.send({ product, relatedProducts });
 };
 
 const getReviews = async (req, res) => {

@@ -174,13 +174,11 @@
         const categoryId = [];
         $.each($("input[name=categoryId]:checked"), function () {
           categoryId.push($(this).val());
-        });
-        console.log('categoryId', categoryId);
+        });   
       });
 
       $('input[name=sort]').on('change', function (item) {
         const sort = $(this).val();
-        console.log('sort', sort);
       });
 
       $('#btn-clear-filter').on('click', function () {

@@ -128,20 +128,7 @@ const getLogin = (req, res, next) => {
   console.log(req.query);
 
   const loginRes = req.query?.res;
-  res.send({
-    loginRes,
-
-    formAction: queryString.stringifyUrl({
-      url: '/auth/login',
-      query: { nextUrl: req.query?.nextUrl },
-    }),
-
-    registerUrl: queryString.stringifyUrl({
-      url: '/auth/register',
-      query: { nextUrl: req.query?.nextUrl },
-    }),
-  });
-  // res.render('auth/login', {
+  // res.send({
   //   loginRes,
 
   //   formAction: queryString.stringifyUrl({
@@ -154,6 +141,19 @@ const getLogin = (req, res, next) => {
   //     query: { nextUrl: req.query?.nextUrl },
   //   }),
   // });
+  res.render('auth/login', {
+    loginRes,
+
+    formAction: queryString.stringifyUrl({
+      url: '/auth/login',
+      query: { nextUrl: req.query?.nextUrl },
+    }),
+
+    registerUrl: queryString.stringifyUrl({
+      url: '/auth/register',
+      query: { nextUrl: req.query?.nextUrl },
+    }),
+  });
 };
 
 const postLogin = (req, res, next) => {
