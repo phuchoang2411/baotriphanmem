@@ -81,7 +81,7 @@
                         <th scope="row"><%= product.name %></th>
                         <td><%= product.price %></td>
                         <td><%= product.categoryId.name %></td>
-                        <td>Tăng Hoàng Yến</td>
+                        <td><%= product.ownerId?.fullName %></td>
                         <td>
                           <a
                             href="/product/update-product/<%= product._id %>"

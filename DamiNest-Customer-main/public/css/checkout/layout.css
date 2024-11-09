@@ -1,1 +1,105 @@
-.checkout-layout{background:#841206;min-height:100vh}.checkout-layout .checkout-container{background:#fff;min-height:100vh}.checkout-layout .checkout-header{padding:2rem 1rem;border-bottom:1px solid #eee}.checkout-layout .checkout-header .logo{display:flex;align-items:center;justify-content:center;margin-bottom:2rem}.checkout-layout .checkout-header .steps{display:flex;align-items:center}.checkout-layout .checkout-header .steps .step{display:flex;align-items:center;position:relative}.checkout-layout .checkout-header .steps .step:not(:last-child){flex:1}.checkout-layout .checkout-header .steps .step:not(:last-child)::after{content:"";position:absolute;top:50%;left:2rem;width:calc(100% - 2.5rem);height:1px;background:#eee}.checkout-layout .checkout-header .steps .step .step-icon{display:flex;align-items:center;justify-content:center;width:1.5rem;height:1.5rem;margin-right:.5rem;border:1px solid #9b9b9b;border-radius:50rem;color:#9b9b9b;background:#fff;line-height:normal;font-size:.875rem}.checkout-layout .checkout-header .steps .step .step-label{position:relative;z-index:1;padding-right:.5rem;background:#fff;color:#9b9b9b;line-height:normal}.checkout-layout .checkout-header .steps .step.done:not(:last-child)::after{background-color:#841206}.checkout-layout .checkout-header .steps .step.done .step-icon{background:#fff;border-color:#841206;color:#841206}.checkout-layout .checkout-header .steps .step.done .step-label{color:#000}.checkout-layout .checkout-header .steps .step.active .step-icon{background:#841206;border-color:#841206;color:#fff}.checkout-layout .checkout-header .steps .step.active .step-label{color:#000;font-weight:500}.checkout-layout .checkout-main{padding:2rem}.checkout-layout .checkout-panel{border:1px solid #eee;border-radius:.5rem;box-shadow:rgba(0,0,0,.08) 1px 2px 8px}.checkout-layout .checkout-panel .checkout-heading{display:flex;align-items:center;padding:1rem 2rem;border-bottom:1px solid #eee;line-height:normal}.checkout-layout .checkout-panel .checkout-heading h2{flex:1;margin:0 1rem 0 0;font-family:"Yeseva One",cursive;font-size:1.125rem}.checkout-layout .checkout-panel .checkout-body{padding:1.5rem 2rem}/*# sourceMappingURL=layout.css.map */
+.checkout-layout {
+  background: #841206;
+  min-height: 100vh;
+}
+.checkout-layout .checkout-container {
+  background: #fff;
+  min-height: 100vh;
+}
+.checkout-layout .checkout-header {
+  padding: 2rem 1rem;
+  border-bottom: 1px solid #eee;
+}
+.checkout-layout .checkout-header .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.checkout-layout .checkout-header .steps {
+  display: flex;
+  align-items: center;
+}
+.checkout-layout .checkout-header .steps .step {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.checkout-layout .checkout-header .steps .step:not(:last-child) {
+  flex: 1;
+}
+.checkout-layout .checkout-header .steps .step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  width: calc(100% - 2.5rem);
+  height: 1px;
+  background: #eee;
+}
+.checkout-layout .checkout-header .steps .step .step-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+  border: 1px solid #9b9b9b;
+  border-radius: 50rem;
+  color: #9b9b9b;
+  background: #fff;
+  line-height: normal;
+  font-size: 0.875rem;
+}
+.checkout-layout .checkout-header .steps .step .step-label {
+  position: relative;
+  z-index: 1;
+  padding-right: 0.5rem;
+  background: #fff;
+  color: #9b9b9b;
+  line-height: normal;
+}
+.checkout-layout .checkout-header .steps .step.done:not(:last-child)::after {
+  background-color: #841206;
+}
+.checkout-layout .checkout-header .steps .step.done .step-icon {
+  background: #fff;
+  border-color: #841206;
+  color: #841206;
+}
+.checkout-layout .checkout-header .steps .step.done .step-label {
+  color: #000;
+}
+.checkout-layout .checkout-header .steps .step.active .step-icon {
+  background: #841206;
+  border-color: #841206;
+  color: #fff;
+}
+.checkout-layout .checkout-header .steps .step.active .step-label {
+  color: #000;
+  font-weight: 500;
+}
+.checkout-layout .checkout-main {
+  padding: 2rem;
+}
+.checkout-layout .checkout-panel {
+  border: 1px solid #eee;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.08) 1px 2px 8px;
+}
+.checkout-layout .checkout-panel .checkout-heading {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #eee;
+  line-height: normal;
+}
+.checkout-layout .checkout-panel .checkout-heading h2 {
+  flex: 1;
+  margin: 0 1rem 0 0;
+  font-family: 'Yeseva One', cursive;
+  font-size: 1.125rem;
+}
+.checkout-layout .checkout-panel .checkout-body {
+  padding: 1.5rem 2rem;
+} /*# sourceMappingURL=layout.css.map */

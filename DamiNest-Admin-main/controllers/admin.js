@@ -7,7 +7,8 @@ const getRegister = (req, res) => {
 
 const getAdminList = async (req, res) => {
   const admins = await UserModel.find({ role: 'ADMIN' });
-  res.send({ admins });
+  //res.send({ admins });
+  res.render('admin/list', { admins });
 };
 
 const registerAdmin = async (req, res) => {

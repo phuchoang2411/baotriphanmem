@@ -80,21 +80,7 @@ const sendForgotPasswordEmail = async (email) => {
 const getRegister = (req, res, next) => {
   const registerRes = req.query?.res;
 
-  // res.render('auth/register', {
-  //   registerRes,
-
-  //   formAction: queryString.stringifyUrl({
-  //     url: '/auth/register',
-  //     query: { nextUrl: req.query?.nextUrl },
-  //   }),
-
-  //   loginUrl: queryString.stringifyUrl({
-  //     url: '/auth/login',
-  //     query: { nextUrl: req.query?.nextUrl },
-  //   }),
-  // });
-
-  res.send({
+  res.render('auth/register', {
     registerRes,
 
     formAction: queryString.stringifyUrl({
@@ -107,6 +93,20 @@ const getRegister = (req, res, next) => {
       query: { nextUrl: req.query?.nextUrl },
     }),
   });
+
+  // res.send({
+  //   registerRes,
+
+  //   formAction: queryString.stringifyUrl({
+  //     url: '/auth/register',
+  //     query: { nextUrl: req.query?.nextUrl },
+  //   }),
+
+  //   loginUrl: queryString.stringifyUrl({
+  //     url: '/auth/login',
+  //     query: { nextUrl: req.query?.nextUrl },
+  //   }),
+  // });
 };
 
 const postRegister = (req, res, next) => {
