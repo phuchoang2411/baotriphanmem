@@ -10,7 +10,7 @@ const orderController = require('./order')
 const checkoutController = require('./checkout')
 const productReviewController = require('./productReview')
 const mailController = require('./mail')
-const dataController = require('./data')
+//const dataController = require('./data')
 
 module.exports = {
   aboutController,
@@ -25,5 +25,5 @@ module.exports = {
   checkoutController,
   productReviewController,
   mailController,
-  dataController
+  //dataController
 }
