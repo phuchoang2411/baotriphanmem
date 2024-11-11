@@ -67,9 +67,9 @@
                       <% if(reviews.length> 0) { %> <% for(let review of
                       reviews) { %>
                       <tr>
-                        <th scope="row"><%= review.productId.name %></th>
-                        <td><%= review.rating %></td>
-                        <td><%= review.content %></td>
+                        <th scope="row"><%= review?.productId?.name %></th>
+                        <td><%= review?.rating %></td>
+                        <td><%= review?.content %></td>
                         <td>
                           <% if (!review.published) {%> Chưa đăng <% } else { %>
                           Đã đăng <% } %>
