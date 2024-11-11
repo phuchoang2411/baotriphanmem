@@ -1,5 +1,5 @@
 module.exports = {
-  companyName: 'Yến Sào DamiNest',
+  companyName: 'Kummo Chan',
   header: {
     logo: 'https://daminest.penphy.com/images/logo-with-text.png'
   },
