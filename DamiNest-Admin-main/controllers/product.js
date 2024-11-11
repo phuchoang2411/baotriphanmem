@@ -1,17 +1,17 @@
 const { ProductModel, ProductCategoryModel, UserModel } = require('../models');
 const { upload } = require('../middlewares');
-const { PRODUCTS } = require('../constants');
+//const { PRODUCTS } = require('../constants');
 // const { Resize } = require('../services')
 // const path = require('path')
 
-const initProduct = async (req, res) => {
-  try {
-    const products = await ProductModel.insertMany(PRODUCTS);
-    return res.json(products);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-};
+// const initProduct = async (req, res) => {
+//   try {
+//     const products = await ProductModel.insertMany(PRODUCTS);
+//     return res.json(products);
+//   } catch (error) {
+//     res.status(400).send(error.message);
+//   }
+// };
 
 const getAllProduct = async (req, res) => {
   try {
@@ -142,7 +142,7 @@ const uploadImage = async (req, res, next) => {
 };
 
 module.exports = {
-  initProduct,
+  //initProduct,
   getAllProduct,
   addProduct,
   deleteProduct,

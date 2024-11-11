@@ -52,7 +52,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       // Creating 24 hours * 7 days from milliseconds
-      maxAge: 10000 * 60 * 60 * 24 * 7,
+      maxAge: 1000000 * 60 * 60 * 24 * 7,
     },
     resave: false,
   })

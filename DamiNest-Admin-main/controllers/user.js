@@ -1,12 +1,12 @@
 const { UserModel } = require('../models');
-const { CUSTOMERS } = require('../constants');
+//const { CUSTOMERS } = require('../constants');
 
 const createUser = async (req, res) => {
   const user = new UserModel({
-    fullName: 'Vo Duc Minh',
-    email: 'vdminh@penphy.edu.vn',
-    password: 'happy2code',
-    avatar: '/img/avatar/vdminh.jpeg',
+    fullName: 'Hoang Phuc',
+    email: 'phuchoang2411@gmail.com',
+    password: 'a',
+    avatar: '/img/avatar/phuchoang.jpeg',
     isVerified: true,
     isBlocked: false,
     role: 'ADMIN',
@@ -16,14 +16,14 @@ const createUser = async (req, res) => {
   console.log('Add ' + user.fullName + ' successfully!');
 };
 
-const initUsers = async (req, res) => {
-  try {
-    const users = await UserModel.insertMany(CUSTOMERS);
-    return res.json(users);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-};
+// const initUsers = async (req, res) => {
+//   try {
+//     const users = await UserModel.insertMany(CUSTOMERS);
+//     return res.json(users);
+//   } catch (error) {
+//     res.status(400).send(error.message);
+//   }
+// };
 
 const getAllUsers = async (req, res) => {
   try {
@@ -81,7 +81,7 @@ const unblockUser = async (req, res) => {
 
 module.exports = {
   createUser,
-  initUsers,
+  
   getAllUsers,
   getProfile,
   blockUser,

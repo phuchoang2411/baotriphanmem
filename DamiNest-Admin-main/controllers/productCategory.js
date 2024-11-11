@@ -1,11 +1,11 @@
 const { ProductCategoryModel } = require('../models');
 
-const { PRODUCT_CATEGORIES } = require('../constants/productCategory');
+//const { PRODUCT_CATEGORIES } = require('../constants/productCategory');
 
-const initCategory = async (req, res) => {
-  const data = await ProductCategoryModel.insertMany(PRODUCT_CATEGORIES);
-  return res.json(data);
-};
+// const initCategory = async (req, res) => {
+//   const data = await ProductCategoryModel.insertMany(PRODUCT_CATEGORIES);
+//   return res.json(data);
+// };
 
 const getAllCategory = async (req, res) => {
   try {
@@ -42,7 +42,7 @@ const deleteCategory = async (req, res, next) => {
 };
 
 module.exports = {
-  initCategory,
+ 
   getAllCategory,
   addCategory,
   deleteCategory,
